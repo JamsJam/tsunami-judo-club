@@ -54,7 +54,7 @@ class Adherent implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $sexe = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $address1 = null;
+    private ?string $adress1 = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $adress2 = null;
@@ -62,20 +62,23 @@ class Adherent implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $adress3 = null;
 
-    #[ORM\Column(length: 35)]
+    #[ORM\Column(length: 35, nullable: true)]
     private ?string $ville = null;
 
     #[ORM\Column(length: 5)]
     private ?string $cpo = null;
 
-    #[ORM\Column(length: 45)]
+    #[ORM\Column(length: 45, nullable: true)]
     private ?string $pays = null;
 
-    #[ORM\Column(length: 4)]
+    #[ORM\Column(length: 4, nullable: true)]
     private ?string $indicatifPays = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $telephone = null;
+
+    #[ORM\OneToOne(inversedBy: 'adherent', cascade: ['persist', 'remove'])]
+    private ?Licence $licence = null;
 
 
     public function getId(): ?int
@@ -225,9 +228,9 @@ class Adherent implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAddress1(): ?string
+    public function getAdress1(): ?string
     {
-        return $this->address1;
+        return $this->adress1;
     }
 
     public function getSexe(): ?int
@@ -242,9 +245,9 @@ class Adherent implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setAddress1(string $address1): static
+    public function setAdress1(string $adress1): static
     {
-        $this->address1 = $address1;
+        $this->adress1 = $adress1;
 
         return $this;
     }
@@ -290,7 +293,7 @@ class Adherent implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->ville;
     }
 
-    public function setVille(string $ville): static
+    public function setVille(?string $ville): static
     {
         $this->ville = $ville;
 
@@ -302,7 +305,7 @@ class Adherent implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->pays;
     }
 
-    public function setPays(string $pays): static
+    public function setPays(?string $pays): static
     {
         $this->pays = $pays;
 
@@ -329,6 +332,18 @@ class Adherent implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelephone(?int $telephone): static
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getLicence(): ?Licence
+    {
+        return $this->licence;
+    }
+
+    public function setLicence(?Licence $licence): static
+    {
+        $this->licence = $licence;
 
         return $this;
     }

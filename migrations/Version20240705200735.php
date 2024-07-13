@@ -26,6 +26,7 @@ final class Version20240705200735 extends AbstractMigration
         $this->addSql('ALTER TABLE licence ADD commissairelvl_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE licence ADD CONSTRAINT FK_1DAAE6487E144B9E FOREIGN KEY (commissairelvl_id) REFERENCES commissairelvl (id)');
         $this->addSql('CREATE INDEX IDX_1DAAE6487E144B9E ON licence (commissairelvl_id)');
+        
     }
 
     public function down(Schema $schema): void

@@ -40,8 +40,7 @@ class Licence
     #[ORM\ManyToOne(inversedBy: 'licences')]
     private ?Arbitrelvl $arbitrelvl = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Adherent $adherent = null;
+
 
     /**
      * @var Collection<int, Certificates>
@@ -54,6 +53,9 @@ class Licence
 
     #[ORM\OneToOne(mappedBy: 'licence', cascade: ['persist', 'remove'])]
     private ?Contacturgence $contacturgence = null;
+
+    #[ORM\OneToOne(mappedBy: 'licence', cascade: ['persist', 'remove'])]
+    private ?Adherent $adherent = null;
 
     public function __construct()
     {
@@ -161,22 +163,11 @@ class Licence
         return $this;
     }
 
-    public function getAdherent(): ?Adherent
-    {
-        return $this->adherent;
-    }
-
-    public function setAdherent(?Adherent $adherent): static
-    {
-        $this->adherent = $adherent;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Certificates>
      */
-    public function getCertificates(): Collection
+    public function getCertificates(): ?Collection
     {
         return $this->certificates;
     }
@@ -191,7 +182,7 @@ class Licence
         return $this;
     }
 
-    public function removeCertificate(Certificates $certificate): static
+    public function removeCertificate(?Certificates $certificate): static
     {
         if ($this->certificates->removeElement($certificate)) {
             // set the owning side to null (unless already changed)
@@ -233,6 +224,28 @@ class Licence
         }
 
         $this->contacturgence = $contacturgence;
+
+        return $this;
+    }
+
+    public function getAdherent(): ?Adherent
+    {
+        return $this->adherent;
+    }
+
+    public function setAdherent(?Adherent $adherent): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($adherent === null && $this->adherent !== null) {
+            $this->adherent->setLicence(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($adherent !== null && $adherent->getLicence() !== $this) {
+            $adherent->setLicence($this);
+        }
+
+        $this->adherent = $adherent;
 
         return $this;
     }

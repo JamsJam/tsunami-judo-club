@@ -1,0 +1,42 @@
+@use '../abstract/' as *;
+
+
+header{
+
+    width: 100vw;
+    height: 130px;
+
+    
+    padding-inline:2rem;
+    
+    background-color: hsla(0, 0%, 5%,85%);
+    
+    box-shadow: 0 0 23px 8px hsla(0, 0%, 0%,55%);
+    
+    @extend %flex-row-between-center;
+    
+    
+    // &.logo{
+
+    // }
+    
+    
+    
+
+    & .navigation{
+        
+        @extend %flex-row-between-center;
+        gap: 2em;
+        
+        
+        &__item{
+            font-size: clamp(1rem, 0.4286rem + 1.1905vw, 1.5rem);
+            color: $neutral-95;
+            
+        }
+    }
+}
+
+.hidden{
+    display: none !important;
+}

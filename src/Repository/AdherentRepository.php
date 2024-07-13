@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Adherent;
+use App\Entity\Licence;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -33,6 +36,36 @@ class AdherentRepository extends ServiceEntityRepository implements PasswordUpgr
         $this->getEntityManager()->flush();
     }
 
+    public function findAllByJoinedToLicence()
+    {
+        // $entityManager = $this->getEntityManager();
+
+        // $query = $entityManager->createQuery(
+        //     'SELECT a l, g
+        //     FROM App\Entity\Adherent a
+        //     INNER JOIN a.licence l
+        //     INNER JOIN l.grade g'
+        // );
+
+
+        // return $query->getResult();
+        
+        //todo creeate query builder for index 
+        $qb = $this->createQueryBuilder('a')
+            ->addSelect(array('a'))
+            ->addSelect(array('l'))
+            ->addSelect(array('g'))
+            // ->from(Adherent::class,'a')
+            // ->from(Licence::class,'l')
+            // ->addSelect( array('l'))
+            // ->select(array('a','l','g'))
+            // ->addSelect(('l.numero'))
+            ->leftJoin('a.licence', 'l')
+            ->leftJoin('l.grade', 'g')
+            ->getQuery();
+
+        return $query = $qb->execute();
+    }
     //    /**
     //     * @return Adherent[] Returns an array of Adherent objects
     //     */

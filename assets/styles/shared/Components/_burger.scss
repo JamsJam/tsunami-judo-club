@@ -1,0 +1,64 @@
+@use '../abstract/' as *;
+
+.burger{
+    height: 70px;
+    width: 70px;
+    
+
+    padding-block: 0.5rem;
+
+    @extend %flex-column-around-end;
+    // gap
+
+    &__slice{
+
+
+        height: 7px;
+        background-color: $neutral-85;
+
+        width: 100%;
+
+        transition: 
+            width 250ms ease-in-out,
+            transform 250ms ease-in-out;
+
+        border-radius: 10px;
+        
+    }
+
+
+
+    &:hover:not(.burger.active){
+
+
+        .burger__slice:nth-of-type(1){
+                
+            transition: width 500ms cubic-bezier(.39,1.63,.39,.77) 100ms;
+            
+            width: 70%;
+        }
+
+    }
+
+
+    &.active &__slice {
+
+
+        
+        
+        &:nth-of-type(1){
+            
+            width: 30%;
+        }
+        &:nth-of-type(2){
+            
+            
+            width: 60%;
+        }
+        &:nth-of-type(3){
+            
+            
+            width: 100%;
+        }
+    }
+}

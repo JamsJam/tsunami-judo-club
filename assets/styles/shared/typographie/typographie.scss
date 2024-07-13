@@ -1,0 +1,12 @@
+@use '../abstract/' as *;
+
+/*
+    STRUCTURE :
+    FONT-FAMILLY (TEXT OR TITLE)
+    |---SCREEN(DESK OR MOBILE)
+    |---|---SIZE-TO-SIZE(CLAMP VARIABLE)
+    |---|---|---WEIGHT
+
+    GIVE 2 RESPONSIVE CLASS PER ELEMENTS
+
+*/

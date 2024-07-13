@@ -1,0 +1,26 @@
+// @use './abstract/' as *;
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    // font-family: $font-texte;
+
+}
+
+:root{
+    font-size: 16px;
+}
+// h1,h2{
+//     color: $primary-35;
+// }
+a{
+    text-decoration: none;
+    color : black;
+    &:hover{
+        color:none
+        
+    }
+    }

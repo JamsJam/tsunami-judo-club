@@ -1,0 +1,91 @@
+@use '../abstract/' as *;
+
+.button{
+
+    border-radius: 10px;
+
+    transition: 
+        background-color 300ms ease-in-out,
+        border 300ms ease-in-out,
+        color 300ms ease-in-out,
+        box-shadow 300ms ease-in-out
+    ;
+
+    &__primary{
+
+        @extend .button;
+
+        background-color: $neutral-95;
+        
+        color: $neutral-05;
+        font-size: $desk-font-size-1;
+        font-weight: 700;
+
+        box-shadow: -2px 4px 4px 0px hsl(0, 0%, 0%, 0.25);
+        outline: 0 0 0 0 transparent;
+
+        padding-inline: 106px;
+        padding-block: 16px;
+
+        &:hover{
+            background-color: $glassoW-75;
+            
+        }
+        &:focus{
+            background-color: $glassoW-05;
+            color: $neutral-95;
+            outline: solid 3px $neutral-95;
+            box-shadow: none
+        }
+
+
+
+        &-header{
+            @extend .button__primary;
+            padding-block: 8px;
+            padding-inline: 36px;
+            font-size: $desk-font-size-2;
+        }
+
+        &--medium{
+            @extend .button__primary;
+            padding-inline: 52px;
+            padding-block: 12px;
+        }
+    }
+
+
+    &__secondary{
+        @extend .button;
+
+        // background-color: $neutral-95;
+        background-color: $glassoW-05;
+        
+        color: $neutral-95;
+        font-size: $desk-font-size-1;
+        font-weight: 700;
+
+        outline: solid 3px $neutral-95;
+
+        padding-inline: 106px;
+        padding-block: 16px;
+
+        &:hover{
+            background-color: $glassoW-25;
+            
+        }
+        &:focus{
+            background-color: $glassoW-95;
+            color: $neutral-05;
+            outline: solid 3px $neutral-95;
+            
+        }
+
+        &--medium{
+            @extend .button__secondary;
+            padding-inline: 52px;
+            padding-block: 12px;
+        }
+    }
+
+}
