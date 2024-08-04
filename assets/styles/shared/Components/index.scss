@@ -1,3 +1,5 @@
 @forward 'header';
 @forward 'buttons';
 @forward 'burger';
+@forward 'inputs';
+@use './Cards/' as *

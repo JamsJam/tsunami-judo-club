@@ -1,0 +1,57 @@
+@use '../../shared/abstract/' as *;
+
+
+.userCard{
+    background-color: $glassoW-85;
+
+    width: 230px;
+    height: 400px;
+    padding-block-end: 16px; 
+    border-radius: 10px;
+    
+    @extend %flex-column-between-stretch;
+    
+    
+    
+    &__photo{
+        
+        
+        height: 150px;
+        width: 100%;
+        
+        // background-color: aqua;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        
+    }
+    
+    
+    &__info{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        place-items: center;
+        
+        height: 150px;
+        
+
+    }
+
+    &__license{
+        width: 100%;
+        text-align: center;
+        padding-block: 1rem
+    }
+
+    &__btn{
+
+
+        @extend %flex-column-center-stretch;
+        
+        .button__primary--medium{
+            transform: scale(0.8);
+            padding: 12px 16px ;
+            @extend %flex-row-center;
+        }
+    }
+}

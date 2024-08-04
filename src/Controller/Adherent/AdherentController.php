@@ -18,7 +18,7 @@ class AdherentController extends AbstractController
     public function index(AdherentRepository $adherentRepository): Response
     {
         $adherents = $adherentRepository->findAllByJoinedToLicence();
-        dd($adherents);
+        $adherents;
         return $this->render('adherent/index.html.twig', [
             'adherents' => $adherents ,
         ]);
@@ -44,9 +44,11 @@ class AdherentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_adherent_show', methods: ['GET'])]
-    public function show(Adherent $adherent): Response
+    #[Route('/{uuid}', name: 'app_adherent_show', methods: ['GET'])]
+    public function show(string $uuid, AdherentRepository $ar): Response
     {
+        $adherent = $ar->findOneBy(['uuid' => $uuid]);
+
         return $this->render('adherent/show.html.twig', [
             'adherent' => $adherent,
         ]);

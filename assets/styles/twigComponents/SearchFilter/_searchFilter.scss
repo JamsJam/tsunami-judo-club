@@ -1,0 +1,61 @@
+@use '../../shared/abstract/' as *;
+
+.searchFilter{
+
+    width: 100%;
+    @extend %flex-column-center;
+    gap:2rem;
+    padding-inline: 2rem;
+
+    
+    .search{
+        // background-color: aqua;
+        padding-block: 2rem;
+        .searchForm{
+
+            @extend %flex-row-center;
+            gap: 2rem;
+
+
+
+            .input__text{
+                width: 30vw;
+                min-width: 350px;
+                border-top-left-radius:0%;
+                border-bottom-left-radius:0%;
+
+
+                outline: none;
+                
+            }
+
+            .button__search{
+                border-top-right-radius:0%;
+                border-bottom-right-radius:0%;
+                border: none;
+
+                text-transform: capitalize;
+
+                
+                font-weight: 600;
+            }
+        }
+
+
+    }
+
+    .result{
+        width: 100%;
+        max-width: 1300px;
+        
+        
+        &__grid{
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            place-items: center;
+            gap: 2rem 1rem;
+
+        }
+    }
+}

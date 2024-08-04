@@ -12,6 +12,8 @@ use Doctrine\Persistence\ObjectManager;
 use App\Repository\ArbitrelvlRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\Repository\CommissairelvlRepository;
+use App\Repository\GroupeRepository;
+use App\Repository\TypeRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Uid\Uuid;
 
@@ -21,6 +23,8 @@ class AdherentFixtures extends Fixture
     private GradeRepository $gr;
     private ArbitrelvlRepository $ar;
     private CommissairelvlRepository $cr;
+    private GroupeRepository $groupeRepo;
+    private TypeRepository $tr;
     // private UuidV7 $uuid;
 
     public function __construct(
@@ -28,6 +32,8 @@ class AdherentFixtures extends Fixture
         GradeRepository $gr,
         ArbitrelvlRepository $ar,
         CommissairelvlRepository $cr,
+        GroupeRepository $groupeRepo,
+        TypeRepository $tr
         // UuidV7 $uuid
 
     )
@@ -36,6 +42,8 @@ class AdherentFixtures extends Fixture
         $this->gr = $gr ;
         $this->ar = $ar ;
         $this->cr = $cr ;
+        $this->groupeRepo = $groupeRepo ;
+        $this->tr = $tr;
         // $this->uuid = $uuid ;
     }
 
@@ -49,6 +57,8 @@ class AdherentFixtures extends Fixture
         $allGrades = $this->gr->findAll();
         $allArbitreLv = $this->ar->findAll() ;
         $allCommissaireLv = $this->cr->findAll();
+        $allGroupe = $this->groupeRepo->findAll();
+        $allLicenceType = $this->tr->findAll();
 
         for ($i=0; $i < 50; $i++) { 
 
@@ -80,7 +90,14 @@ class AdherentFixtures extends Fixture
                     ->setGrade($allGrades[array_rand($allGrades, 1)])
                     ->setArbitrelvl($allArbitreLv[array_rand($allArbitreLv, 1)])
                     ->setCommissairelvl($allCommissaireLv[array_rand($allCommissaireLv, 1)])
+                    ->setType($allLicenceType[array_rand($allLicenceType, 1)])
             ;
+            
+            forEach( array_rand($allGroupe, 2) as $item ) {
+
+                $licence->addGroupe($allGroupe[$item]);
+            }
+
             $manager->persist($licence);
                 
 

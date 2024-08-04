@@ -55,17 +55,88 @@ class AdherentRepository extends ServiceEntityRepository implements PasswordUpgr
             ->addSelect(array('a'))
             ->addSelect(array('l'))
             ->addSelect(array('g'))
-            // ->from(Adherent::class,'a')
-            // ->from(Licence::class,'l')
-            // ->addSelect( array('l'))
-            // ->select(array('a','l','g'))
-            // ->addSelect(('l.numero'))
-            ->leftJoin('a.licence', 'l')
-            ->leftJoin('l.grade', 'g')
+            ->addSelect(array('gr'))
+            ->addSelect(array('t'))
+            
+            ->innerJoin('a.licence', 'l')
+            ->innerJoin('l.grade', 'g')
+            ->innerJoin('l.groupes', 'gr')
+            ->innerJoin('l.type', 't')
             ->getQuery();
 
         return $query = $qb->execute();
     }
+
+
+    /**
+     * @param string $q la valeur de recherche
+     * @param array $f ensemble des filtes
+     * @param int $c numero de la page actuel
+     * @param int $p item par page
+     * 
+     */
+    public function searchIndex(string $q , mixed $f, ?int $c = null, ?int $p = null)
+    {
+
+        $qb = $this->createQueryBuilder('a')
+            ->Select(array('DISTINCT a.uuid','a.nom','a.prenom','a.birthAt',))
+            ->addSelect('l.numero')
+            ->addSelect(array('g.ceinture','g.grade'))
+
+            ->leftJoin('a.licence', 'l')
+            ->leftJoin('l.grade', 'g')
+            ->leftJoin('l.groupes', 'gr')
+            // ->leftJoin('l.type', 't')
+            // ->leftJoin('l.arbitrelvl', 'ar')
+            // ->leftJoin('l.commissairelvl', 'c');
+            ;
+        //! ====== Search query
+            if ((strlen($q) > 0 )  ) {
+
+                $qb->andwhere( $qb->expr()->like('a.nom',':query') )
+                    ->orWhere( $qb->expr()->like('a.prenom',':query'))
+                    ->orWhere( $qb->expr()->like('l.numero',':query') )
+                    ->setParameter('query' , '%' . $q . '%');
+                    
+            };
+            
+            
+        //! ====== Filter query
+            if( strlen($f['grade']) > 0){
+                $qb->andWhere( $qb->expr()->like('g.ceinture',':gradefilter') )
+                    ->setParameter('gradefilter' ,  $f['grade'] );
+            };
+            if( strlen($f['arbitre']) > 0){
+                $qb->andWhere( $qb->expr()->like('ar.niveaux',':arbitrefilter') )
+                    ->setParameter('arbitrefilter' ,  $f['arbitre'] );
+            };
+            if(strlen($f['commissaire']) > 0){
+                $qb->andWhere( $qb->expr()->like('c.niveaux',':commissairefilter') )
+                    ->setParameter('commissairefilter' ,  $f['commissaire'] );
+            };
+            if(count($f['yearRange']) > 0){
+                $qb->andWhere( $qb->expr()->between('a.birthAt', ':rangeMin', ':rangeMax') )
+                    ->setParameter('rangeMin' , end($f['yearRange'])  . '-01-01') 
+                    ->setParameter('rangeMax' , $f['yearRange'][0]  . '-12-31' );
+            };
+            if($f['groupe'] && count($f['groupe'])){
+                $groupCount = count($f['groupe']);
+                $qb->andWhere($qb->expr()->in('gr.nom', ':groupes'))
+                    ->setParameter('groupes', $f['groupe'])
+                    ->groupBy('a.id', 'a.nom', 'a.prenom', 'a.birthAt', 'l.numero', 'g.ceinture', 'g.grade')
+                    ->having('COUNT(DISTINCT gr.nom) = :groupCount')
+                    ->setParameter('groupCount', $groupCount);
+            };
+        
+        $query = $qb->orderBy('a.nom', 'ASC')
+            
+            ->getQuery()
+            ->execute();
+
+        return $query;
+    }
+
+
     //    /**
     //     * @return Adherent[] Returns an array of Adherent objects
     //     */

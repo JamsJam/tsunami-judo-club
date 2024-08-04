@@ -14,6 +14,7 @@ final class RandomNumber
 
     public function getRandomNumber(): int
     {
+        
         return rand(0, $this->max);
     }
     use DefaultActionTrait;

@@ -1,0 +1,41 @@
+<div class="userCard"
+{{ attributes }}
+{# data-live-ignore #}
+id="{{"item--" ~ page ~ "--" ~ index }}"
+{# style='--i: {{ (page * per_page) + index - 1 }}' #}
+{% if target is defined %}
+
+data-appear-target="{{ target }}"
+data-action={{action}}
+data-live-action-param={{actionParam}}
+{% endif %}
+>
+    <div class="userCard__photo">{{nlicence}}</div>
+    <div class="userCard__info">
+   
+        <p>{{nom}}</p>
+        <p>{{prenom}}</p>
+        <p>{{ageCategory}}</p>
+        <p>
+            {% if ceinture is same as ('noir') %} 
+                
+                {{grade}} 
+
+            {% else %}
+
+                {{ceinture}}
+            
+            {% endif %}
+
+        </p>
+    </div>
+    <p class="userCard__license">{{nlicence}}</p>
+    <div class="userCard__btn">
+    
+        <a href="{{ path('app_adherent_show', { 'uuid' : uuid }) }}" class="button__primary--medium">
+            Voir le profil
+        </a>
+        
+    </div>
+</div>
+

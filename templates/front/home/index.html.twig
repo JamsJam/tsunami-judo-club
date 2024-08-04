@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+{% block mainClass %}home{% endblock %}
+{% block body %}
+    <section>
+        <twig:Home:Hero 
+            key='header'
+        />
+        {# {{ component('Home/Hero', {
+            key: 'Yup',
+        }) }} #}
+    </section>
+
+    <section>
+        <twig:Home:Hero 
+            key='horraire'
+        />
+        <twig:Home:Hero 
+        
+            key='discipline'/>
+    </section>
+
+
+    <section>
+        <twig:Home:Hero 
+            key='evenement'
+        />
+        <twig:Home:Hero 
+            key='contact'
+        />
+    </section>
+
+    <section>
+        <twig:Home:Hero 
+            key='inscription'
+        />
+    </section>
+
+{% endblock %}

@@ -19,7 +19,11 @@
 
         {% endblock %}
     </head>
-    <body>
+    <body
+        {{ stimulus_controller('symfony/ux-swup/swup', {
+            containers: ['#swup', '#card', '.userCard']
+        }) }}
+    >
     
         <header data-controller="header" {{stimulus_controller('header')| stimulus_action('header', 'onResize', "resize@window" ) | stimulus_target('header', 'header') }}>
             <div>
@@ -27,13 +31,13 @@
             </div>
 
             <nav class="navigation" {{ stimulus_target('header', 'navDesktop') }}>
-                <a href="" class="navigation__item">Accueil</a>
-                <a href="" class="navigation__item">Calendrier</a>
-                <a href="" class="navigation__item">Notre club</a>
+                <a href="" class="title__header navigation__item">Accueil</a>
+                <a href="" class="title__header navigation__item">Calendrier</a>
+                <a href="" class="title__header navigation__item">Notre club</a>
                 
                 {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
                     
-                    <a href="" class="navigation__item">Connexion</a>
+                    <a href="" class="title__header navigation__item">Connexion</a>
                     <a href="" class="button__primary-header">Inscription</a>
                     
                 {% else %}
@@ -58,7 +62,7 @@
 
         </header>
         
-        <main>
+        <main class="{% block mainClass %}{% endblock %}" id='swup'>
             <div class="navigationMobile__container" {{stimulus_target('burger', 'navMobile') | stimulus_target('header', 'navMobile')}} id="navMobile"> {# 100vh #}
                 <div class="navigationMobile">
                     <div class="navigationMobile__logo"></div>

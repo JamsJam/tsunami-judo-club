@@ -24,6 +24,8 @@ final class Version20240713014046 extends AbstractMigration
         $this->addSql('INSERT INTO Grade (ceinture, grade) VALUES  ("blanc", "9e kyu"),("blanc-jaune", "8e kyu"),("jaune", "7e kyu"),("jaune-orange", "6e kyu"),("orange", "5e kyu"),("orange-vert", "4e kyu"),("vert", "3e kyu"),("bleu", "2e kyu"),("maron", "1er kyu"),("noir", "2e dan"),("noir", "3e dan"),("noir", "4e dan"),("noir", "5e dan"),("noir", "6e dan"),("noir", "7e dan"),("noir", "8e dan"),("noir", "9e dan")');
         $this->addSql('INSERT INTO Arbitrelvl (niveaux) VALUES ("club"),("departemental"),("regional"),("national"),("international")');
         $this->addSql('INSERT INTO Commissairelvl (niveaux) VALUES ("club"),("departemental"),("regional"),("national"),("international")');
+        $this->addSql('INSERT INTO groupe (nom) VALUES  ("arbitre"), ("commissaire"), ("competiteur"), ("kata"), ("pole")');
+        $this->addSql('INSERT INTO type (nom) VALUES  ("soutient"), ("judoka")');
     }
 
     public function down(Schema $schema): void
@@ -59,5 +61,7 @@ final class Version20240713014046 extends AbstractMigration
         $this->addSql('DELETE FROM Commissairelvl WHERE niveaux = "national"');
         $this->addSql('DELETE FROM Commissairelvl WHERE niveaux = "international"');
 
+        $this->addSql('DELETE FROM groupe WHERE nom IN ("arbitre", "commissaire", "competiteur", "kata", "pole")');
+        $this->addSql('DELETE FROM type WHERE nom IN ("soutient", "judoka")');
     }
 }

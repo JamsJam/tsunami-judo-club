@@ -57,9 +57,19 @@ class Licence
     #[ORM\OneToOne(mappedBy: 'licence', cascade: ['persist', 'remove'])]
     private ?Adherent $adherent = null;
 
+    /**
+     * @var Collection<int, Groupe>
+     */
+    #[ORM\ManyToMany(targetEntity: Groupe::class, mappedBy: 'licence')]
+    private Collection $groupes;
+
+    #[ORM\ManyToOne(inversedBy: 'licence')]
+    private ?Type $type = null;
+
     public function __construct()
     {
         $this->certificates = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,6 +256,45 @@ class Licence
         }
 
         $this->adherent = $adherent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Groupe>
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupe $groupe): static
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes->add($groupe);
+            $groupe->addLicence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): static
+    {
+        if ($this->groupes->removeElement($groupe)) {
+            $groupe->removeLicence($this);
+        }
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

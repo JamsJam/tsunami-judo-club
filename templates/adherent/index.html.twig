@@ -1,71 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adherent index{% endblock %}
+{% block title %}{{parent()}} Gestion des utilisateurs {% endblock %}
 
+{% block mainClass %}userIndex{% endblock %}
 {% block body %}
-    <h1 {{ stimulus_controller('hello') }}>Adherent index</h1>
 
-    {{ component('RandomNumber', {max : 50}) }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                {# <th>Id</th>
-                <th>Uuid</th> #}
-                <th>Email</th>
-                {# <th>Roles</th>
-                <th>Password</th> #}
-                {# <th>CreatedAt</th>
-                <th>UpdatedAt</th> #}
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>BirthAt</th>
-                <th>Sexe</th>
-                <th>Address1</th>
-                {# <th>Adress2</th>
-                <th>Adress3</th>
-                <th>Ville</th> #}
-                <th>Cpo</th>
-                {# <th>Pays</th>
-                <th>IndicatifPays</th> #}
-                <th>Telephone</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for adherent in adherents %}
-            <tr>
-                {# <td>{{ adherent.id }}</td>#}
-                {# <td>{{ adherent.uuid }}</td> #}
-                <td>{{ adherent.email }}</td>
-                {# <td>{{ adherent.roles ? adherent.roles|json_encode : '' }}</td> #}
-                {# <td>{{ adherent.password }}</td> #}
-                {# <td>{{ adherent.createdAt ? adherent.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ adherent.updatedAt ? adherent.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
-                <td>{{ adherent.nom }}</td>
-                <td>{{ adherent.prenom }}</td>
-                <td>{{ adherent.birthAt ? adherent.birthAt|date('Y-m-d') : '' }}</td>
-                <td>{{ adherent.sexe }}</td>
-                <td>{{ adherent.adress1 }}</td>
-                {# <td>{{ adherent.adress2 }}</td> #}
-                {# <td>{{ adherent.adress3 }}</td> #}
-                {# <td>{{ adherent.ville }}</td> #}
-                {# <td>{{ adherent.cpo }}</td> #}
-                {# <td>{{ adherent.pays }}</td> #}
-                {# <td>{{ adherent.indicatifPays }}</td>  #}
-                <td>{{ adherent.telephone }}</td>
-                <td>
-                    <a href="{{ path('app_adherent_show', {'id': adherent.id}) }}">show</a>
-                    <a href="{{ path('app_adherent_edit', {'id': adherent.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="20">no records found</td>
-            </tr>
+{# <div class="userIndex"> #}
+    <h1 > Gestion des utilisateurs</h1>
+    <div class="userIndex__buttons">
+        <a href="" class="button__secondary">Retour</a>
+        <a href="{{path('app_adherent_new')}}" class="button__primary">Nouveau licencié</a>
+    </div>
+
+    {{ component('AdherentSearchFilter')}}
+    
+{# </div> #}
+
+
+    {# {{ component('UserCard', {
+        max : false,
+        prenom : 'yoooooo'
+    }) }} #}
+
+
+{# 
+    {% for adherent in adherents %}
+    
+        {% for groupe in adherent.licence.groupes %}
+            
+            <p>{{ groupe.nom}}</p>
+        
         {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_adherent_new') }}">Create new</a>
+    {% endfor %} #}
+
+    {# <a href="{{ path('app_adherent_new') }}">Create new</a> #}
+
 {% endblock %}

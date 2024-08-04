@@ -1,0 +1,27 @@
+@use '../../shared/abstract/' as * ;
+
+.userIndex{
+    
+    background : 
+        // #050505 
+        // #050505 
+        linear-gradient( hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.7)), url('../images/backgrounds/backgroundUserIndex.jpg') 
+        center/contain
+        no-repeat 
+        fixed ;
+    
+        background-color: #000000;
+    // filter:brightness(70%);
+
+
+    @extend %flex-column-start-center;
+    gap: 4rem;
+    
+    &__buttons{
+        // max-width: 1440px; 
+        
+        width: 100%;
+        @extend %flex-row-around-center;
+
+    }
+}
