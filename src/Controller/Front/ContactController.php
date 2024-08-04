@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
 {
-    #[Route('/front/contact', name: 'app_front_contact')]
+    #[Route('/contact', name: 'app_front_contact')]
     public function index(): Response
     {
         return $this->render('front/contact/index.html.twig', [

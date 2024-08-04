@@ -32,7 +32,7 @@
 
             {% if this.homeTile.ctaPrim is defined %}
         
-                <a href="{{this.homeTile.ctaPrim.path}}" class="button__primary">{{this.homeTile.ctaPrim.text}}</a> 
+                <a href="{{ path(this.homeTile.ctaPrim.path) }}{% if this.homeTile.ctaPrim.id is defined %}#{{this.homeTile.ctaPrim.id}}{% endif %}" class="button__primary">{{this.homeTile.ctaPrim.text}}</a> 
             
             {% endif %}
 
@@ -43,7 +43,8 @@
         
             {% if this.homeTile.ctaSec is defined %}
         
-                <a href="{{this.homeTile.ctaSec.path}}" class="button__secondary">{{this.homeTile.ctaSec.text}}</a> 
+                <a href="{{ path(this.homeTile.ctaSec.path) }}{% if this.homeTile.ctaSec.id is defined %}#{{this.homeTile.ctaSec.id}}{% endif %}" class="button__secondary">{{this.homeTile.ctaSec.text}}</a> 
+                {# <a href="{{this.homeTile.ctaSec.path}}" class="button__secondary">{{this.homeTile.ctaSec.text}}</a>  #}
             
             {% endif %}
 
