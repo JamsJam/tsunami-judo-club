@@ -121,4 +121,17 @@ $imageColorTable: (
         }
     }
 
+
+    &--inscription{
+
+
+        
+        .homeHero__container h2{
+            font-size: clamp(1.5rem, -0.2143rem + 3.5714vw, 3rem);
+        }
+
+
+    }
+
+
 }
