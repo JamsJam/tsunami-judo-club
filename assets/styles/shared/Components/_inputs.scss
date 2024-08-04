@@ -1,0 +1,106 @@
+@use '../abstract/' as *;
+
+.input{
+    
+
+    &__text{
+        // inherits: none;
+        color: $neutral-05;
+        background-color: $neutral-85;
+        border:none;
+        padding: 1rem;
+        border-radius: 10px;
+    };
+
+    
+}
+
+.checkbox {
+
+    appearance: none;
+
+    &__switch {
+        display: inline-block;
+        position: relative;
+        width: 70px;
+        height: 40px;
+        cursor: pointer;
+        overflow: hidden;
+
+        & .checkbox + span {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #99b4df;
+            border-radius: 20px;
+            transition: background 0.25s;
+
+            &::before {
+                content: "";
+                display: inline-block;
+                position: absolute;
+                top: 50%;
+                left: 4px;
+                width: 32px;
+                height: 32px;
+                background: white;
+                border-radius: 50%;
+                transform: translateY(-50%);
+                transition: all 0.5s;
+            }
+        }
+
+        & .checkbox:checked + span {
+            background: #346abf;
+
+            &::before {
+                left: 34px;
+            }
+        }
+    }
+}
+
+//! select
+
+.custom-select {
+    min-width: 350px;
+    position: relative;
+  
+  
+  & select {
+    appearance: none;
+    width: 100%;
+    font-size: 1.15rem;
+    padding: 0.675em 6em 0.675em 1em;
+    background-color: #fff;
+    border: 1px solid #caced1;
+    border-radius: 0.25rem;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  &::before,
+  &::after {
+    --size: 0.3rem;
+    content: "";
+    position: absolute;
+    right: 1rem;
+    pointer-events: none;
+  }
+  
+  &::before {
+    border-left: var(--size) solid transparent;
+    border-right: var(--size) solid transparent;
+    border-bottom: var(--size) solid black;
+    top: 40%;
+  }
+  
+  &::after {
+    border-left: var(--size) solid transparent;
+    border-right: var(--size) solid transparent;
+    border-top: var(--size) solid black;
+    top: 55%;
+  }
+}

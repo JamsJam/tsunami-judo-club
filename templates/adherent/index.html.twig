@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} Gestion des utilisateurs {% endblock %}
+
+{% block mainClass %}userIndex{% endblock %}
+{% block body %}
+
+
+{# <div class="userIndex"> #}
+    <h1 > Gestion des utilisateurs</h1>
+    <div class="userIndex__buttons">
+        <a href="" class="button__secondary">Retour</a>
+        <a href="{{path('app_adherent_new')}}" class="button__primary">Nouveau licencié</a>
+    </div>
+
+    {{ component('AdherentSearchFilter')}}
+    
+{# </div> #}
+
+
+    {# {{ component('UserCard', {
+        max : false,
+        prenom : 'yoooooo'
+    }) }} #}
+
+
+{# 
+    {% for adherent in adherents %}
+    
+        {% for groupe in adherent.licence.groupes %}
+            
+            <p>{{ groupe.nom}}</p>
+        
+        {% endfor %}
+
+    {% endfor %} #}
+
+    {# <a href="{{ path('app_adherent_new') }}">Create new</a> #}
+
+{% endblock %}

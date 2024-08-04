@@ -1,0 +1,53 @@
+@use '../abstract/' as *;
+
+$title-font-weights: (900, 800, 700, 600, 500, 400, 300, 200, 100);
+
+.title{
+    font-family: $font-title;
+    
+    &__header{
+        @extend .title;
+        font-size: $desk-font-size-1;
+        font-weight: 500;
+    }
+    
+    &__desk{
+        
+        @each $weight in $title-font-weights {
+            &__1-to-1_5--#{$weight} {
+                @extend .title;
+                font-size: $desk-font-size-1;
+                font-weight: $weight;
+            }
+        }
+        
+        
+        @each $weight in $title-font-weights {
+            &__1-to-1_25--#{$weight} {
+                @extend .title;
+                font-size: $desk-font-size-2;
+                font-weight: $weight;
+            }
+        }
+    
+        // &__1-to-1_5{
+
+        // }
+    }
+
+
+    // &__mob{}
+}
+
+
+/*
+*
+    STRUCTURE :
+    FONT-FAMILLY (TEXT OR TITLE)
+    |---SCREEN(DESK OR MOBILE)
+    |---|---SIZE-TO-SIZE(CLAMP VARIABLE)
+    |---|---|---WEIGHT
+
+    GIVE 2 RESPONSIVE CLASS PER ELEMENTS
+
+*/

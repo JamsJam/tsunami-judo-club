@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adherent{% endblock %}
+
+{% block body %}
+    <h1>Adherent</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ adherent.id }}</td>
+            </tr>
+            <tr>
+                <th>Uuid</th>
+                <td>{{ adherent.uuid }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ adherent.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ adherent.roles ? adherent.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ adherent.password }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ adherent.createdAt ? adherent.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ adherent.updatedAt ? adherent.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ adherent.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ adherent.prenom }}</td>
+            </tr>
+            <tr>
+                <th>BirthAt</th>
+                <td>{{ adherent.birthAt ? adherent.birthAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ adherent.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Address1</th>
+                <td>{{ adherent.adress1 }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ adherent.ville }}</td>
+            </tr>
+            <tr>
+                <th>Cpo</th>
+                <td>{{ adherent.cpo }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ adherent.pays }}</td>
+            </tr>
+            <tr>
+                <th>IndicatifPays</th>
+                <td>{{ adherent.indicatifPays }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ adherent.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_adherent_index') }}">back to list</a>
+
+    <a href="{{ path('app_adherent_edit', {'id': adherent.id}) }}">edit</a>
+
+    {{ include('adherent/_delete_form.html.twig') }}
+{% endblock %}

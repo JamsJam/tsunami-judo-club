@@ -8,44 +8,48 @@ Le présent dossier a pour objectif de présenter le projet de réalisation d'un
 
 ## Table des matières
 
-- [Présentation du Tsunami Club de Judo](#présentation-du-tsunami-club-de-judo)
-- [Problématique et besoins](#problématique-et-besoins)
-- [Valeur ajoutée et avantages concurrentiels](#valeur-ajoutée-et-avantages-concurrentiels)
-- [Objectifs spécifiques du site internet](#objectifs-spécifiques-du-site-internet)
-- [Description du site internet](#description-du-site-internet)
-- [Structure du site internet](#structure-du-site-internet)
-  - [L'espace public](#lespace-public)
-    - [Landing page](#landing-page)
-    - [Accueil](#accueil)
-    - [Page présentation des disciplines et de l'équipe dirigeante](#page-présentation-des-disciplines-et-de-léquipe-dirigeante)
-    - [Événements et calendrier](#événements-et-calendrier)
-    - [Informations et Contact](#informations-et-contact)
-    - [Blog](#blog)
-    - [Connexion](#connexion)
-    - [Inscription](#inscription)
-  - [Espace membre](#espace-membre)
-    - [Page d'espace membre](#page-despace-membre)
-    - [Page profil](#page-profil)
-    - [Page blog (gestion)](#page-blog-gestion)
-    - [Page de messagerie](#page-de-messagerie)
-  - [L'espace administrateur](#lespace-administrateur)
-    - [Page d'espace administrateur](#page-despace-administrateur-page-espace-administrateur)
-      - [Page liste des membres](#page-liste-des-membres)
-      - [Page détail d'un membre](#page-détail-dun-membre)
-      - [Page d'ajout d'un membre](#page-dajout-dun-membre)
-      - [Page liste des articles](#page-liste-des-articles)
-      - [Page détail d'un article](#page-détail-dun-article)
-      - [Page d'ajout d'un article](#page-dajout-dun-article)
-      - [Page de Validation des articles](#page-de-validation-des-articles)
-    - [Pages gestion des événements](#pages-gestion-des-événements)
-    - [Pages gestion des sponsors et partenaires](#pages-gestion-des-sponsors-et-partenaires)
-    - [Page gestion des paiements](#page-gestion-des-paiements)
-- [Workflow](#workflow)
-  - [Inscription et paiement des frais d'inscription](#inscription-et-paiement-des-frais-dinscription)
-  - [Renouvellement de licence](#renouvellement-de-licence)
-  - [Ajout d'événement](#ajout-dévénement)
-  - [Commandes et paiement](#commandes-et-paiement)
-- [Conclusion](#conclusion)
+- [Dossier de réalisation d'un site internet pour le Tsunami Club de Judo](#dossier-de-réalisation-dun-site-internet-pour-le-tsunami-club-de-judo)
+  - [Introduction](#introduction)
+  - [Table des matières](#table-des-matières)
+  - [Présentation du Tsunami Club de Judo](#présentation-du-tsunami-club-de-judo)
+  - [Problématique et besoins](#problématique-et-besoins)
+  - [Valeur ajoutée et avantages concurrentiels](#valeur-ajoutée-et-avantages-concurrentiels)
+  - [Objectifs spécifiques du site internet](#objectifs-spécifiques-du-site-internet)
+  - [Description du site internet](#description-du-site-internet)
+  - [Structure du site internet](#structure-du-site-internet)
+    - [L'espace public](#lespace-public)
+      - [Landing page](#landing-page)
+      - [Accueil](#accueil)
+      - [Page présentation des disciplines et de l'équipe dirigeante](#page-présentation-des-disciplines-et-de-léquipe-dirigeante)
+      - [Événements et calendrier](#événements-et-calendrier)
+      - [Informations et Contact](#informations-et-contact)
+      - [Blog](#blog)
+      - [Connexion](#connexion)
+      - [Inscription](#inscription)
+    - [Espace membre](#espace-membre)
+      - [Page d'espace membre](#page-despace-membre)
+      - [Page profil](#page-profil)
+      - [Page blog (gestion)](#page-blog-gestion)
+      - [Page de messagerie](#page-de-messagerie)
+    - [L'espace administrateur](#lespace-administrateur)
+      - [Page d'espace administrateur (#page-espace-administrateur) :](#page-despace-administrateur-page-espace-administrateur-)
+        - [Page liste des membres](#page-liste-des-membres)
+        - [Page detail d'un membre](#page-detail-dun-membre)
+        - [Page d'ajoute d'un membre](#page-dajoute-dun-membre)
+        - [Page liste des articles](#page-liste-des-articles)
+        - [Page detail d'un article](#page-detail-dun-article)
+        - [Page d'ajoute d'un article](#page-dajoute-dun-article)
+        - [Page de Validation des articles](#page-de-validation-des-articles)
+      - [Pages gestion des evenements](#pages-gestion-des-evenements)
+      - [Pages gestion des sponsors et partenaires](#pages-gestion-des-sponsors-et-partenaires)
+      - [Page gestion des paiements](#page-gestion-des-paiements)
+  - [Workflow](#workflow)
+    - [Inscription et paiement des frais d'inscription](#inscription-et-paiement-des-frais-dinscription)
+    - [Renouvellement de licence](#renouvellement-de-licence)
+    - [Ajout d'évenement](#ajout-dévenement)
+    - [Commandes et paiement](#commandes-et-paiement)
+  - [Conclusion](#conclusion)
+  - [bdd](#bdd)
 <!-- - [Budget estimé](#budget-estimé) -->
 <!-- - [Calendrier prévisionnel de développement](#calendrier-prévisionnel-de-développement) -->
 
@@ -456,3 +460,85 @@ Des frais annexes sont à prévoir, tels que :
 ## Conclusion
 
 La création d'un site internet pour le Tsunami Club de Judo est une étape essentielle pour répondre aux besoins de communication, de gestion et de promotion de notre association. Ce site web nous permettra de renforcer notre présence en ligne, d'attirer de nouveaux adhérents, de mieux communiquer avec nos membres, de valoriser nos partenaires et sponsors, et de consolider notre positionnement sur le marché du judo dans notre région. Avec un design moderne et des fonctionnalités adaptées, nous sommes convaincus que notre site internet sera un outil clé pour soutenir le développement et la réussite du Tsunami Club de Judo.
+
+## bdd
+
+```mermaid
+erDiagram
+    ADHERENT {
+        int id PK "Clé primaire"
+        string uuid "UUID unique"
+        string email "Email de l'adhérent"
+        string roles "Rôles de l'utilisateur"
+        string password "Mot de passe hashé"
+        datetime createdAt "Date de création"
+        datetime updatedAt "Date de mise à jour"
+        string nom "Nom de l'adhérent"
+        string prenom "Prénom de l'adhérent"
+        datetime birthAt "Date de naissance"
+        int sexe "Sexe"
+        string address1 "Adresse principale"
+        string address2 "Adresse secondaire"
+        string address3 "Adresse tertiaire"
+        string ville "Ville"
+        string cpo "Code postal"
+        string pays "Pays"
+        string indicatifPays "Indicatif du pays"
+        int telephone "Numéro de téléphone"
+    }
+
+    ARBITRELVL {
+        int id PK "Clé primaire"
+        string niveaux "Niveau d'arbitrage"
+    }
+
+    COMMISSAIRELVL {
+        int id PK "Clé primaire"
+        string niveaux "Niveau de commissaire"
+    }
+
+    CERTIFICATES {
+        int id PK "Clé primaire"
+        datetime createdAt "Date de création du certificat"
+        datetime expireAt "Date d'expiration du certificat"
+        string path "Chemin du fichier du certificat"
+        int licenceId FK "Licence associée"
+    }
+
+    GRADE {
+        int id PK "Clé primaire"
+        string ceinture "Couleur de la ceinture"
+        string grade "Grade"
+    }
+
+    LICENCE {
+        int id PK "Clé primaire"
+        datetime createdAt "Date de création de la licence"
+        datetime updatedAt "Date de mise à jour de la licence"
+        datetime renewedAt "Date de renouvellement de la licence"
+        string numero "Numéro de licence"
+        datetime beginAt "Date de début de validité"
+        datetime upgradedAt "Date de mise à niveau"
+        int gradeId FK "Grade associé"
+        int arbitrelvlId FK "Niveau d'arbitrage associé"
+        int commissairelvlId FK "Niveau de commissaire associé"
+        int adherentId FK "Adhérent associé"
+    }
+
+    CONTACTURGENCE {
+        int id PK "Clé primaire"
+        string nom "Nom du contact d'urgence"
+        string prenom "Prénom du contact d'urgence"
+        string telephone "Téléphone du contact d'urgence"
+        int licenceId FK "Licence associée"
+    }
+
+    ADHERENT ||--o{ LICENCE : "est associé à"
+    LICENCE ||--o{ CERTIFICATES : "possède"
+    LICENCE ||--o{ CONTACTURGENCE : "a un contact d'urgence"
+    LICENCE }|--|| GRADE : "est classifié par"
+    LICENCE }|--|| ARBITRELVL : "est jugé par"
+    LICENCE }|--|| COMMISSAIRELVL : "est supervisé par"
+
+
+```

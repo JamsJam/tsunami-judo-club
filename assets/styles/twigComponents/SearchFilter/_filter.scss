@@ -1,0 +1,57 @@
+@use '../../shared/abstract/' as *;
+@use '../../shared/typographie/' as *;
+
+.filters{
+
+    border-radius: 10px;
+
+    background-color: $glassoW-85;
+    padding: 4rem;
+
+    @extend %flex-column-center ;
+    gap: 4rem ;
+
+    width: 100%;
+    max-width: 1280px;
+
+
+    &__checkboxContainer{
+        
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        row-gap: 1rem;
+        column-gap: 1.5rem;
+        width: 100%;
+}
+
+    .checkbox{
+
+        
+        &__container{
+            @extend %flex-column-center;
+            gap:0.5rem;
+        }
+
+        &__label{
+            @extend .title__desk__1-to-1_25--500;
+            text-transform: capitalize;
+        }
+    }
+    
+
+    &__selectContainer{
+        // @extend %flex-row-center;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap:1rem;
+        width: 100%;
+
+
+        .custom-select{
+            border-radius: 30px;
+            min-width: 300px;
+            width: 100%;
+        }
+    }
+}

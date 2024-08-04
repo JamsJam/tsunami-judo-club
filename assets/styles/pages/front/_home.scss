@@ -1,0 +1,84 @@
+@use '../../shared/abstract/' as * ;
+
+.home{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: 1.25fr 1fr 1fr 1.25fr;
+    padding:0;
+
+    section{
+        height: 62.5dvh;
+        min-height: 625px;
+        @extend %flex-row-center;
+
+
+        &:not(:first-of-type):not(:last-of-type)
+        // &:not(section:first-of-type)
+        {
+           
+            height: 50dvh;
+            min-height: 500px;
+        }
+        &:first-of-type{
+            grid-area: 1/1/2/5;
+        }
+        &:nth-of-type(2){
+            grid-area: 2/1/3/5;
+        }
+        &:nth-of-type(3){
+            grid-area: 3/1/4/5;
+        }
+
+        &:last-of-type{
+            grid-area: 4/1/5/5;
+        }
+
+
+    }
+
+
+
+
+    @media  screen and (max-width: 769px) {
+        
+        &{
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            padding:0;
+        
+            section{
+                height: 100svh;
+                min-height: 400px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: stretch;
+
+                grid-area: unset;
+        
+        
+                &:not(:first-of-type):not(:last-of-type)
+                {
+                   
+                    height: 100dvh;
+                    min-height: 400px;
+                }
+                &:first-of-type{
+                    grid-area: 1/1/2/2;
+                }
+                &:nth-of-type(2){
+                    grid-area: 2/1/3/2;
+                }
+                &:nth-of-type(3){
+                    grid-area: 3/1/4/2;
+                }
+        
+                &:last-of-type{
+                    grid-area: 4/1/5/2;
+                }
+
+            }
+        }
+    }
+}

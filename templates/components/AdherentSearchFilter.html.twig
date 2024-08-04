@@ -1,0 +1,103 @@
+<div{{ attributes.defaults(stimulus_controller('appear')) }} class='searchFilter'>
+    
+    <div class='search'>
+        <div class="searchForm">
+            <input type="submit" value="rechercher" data-action="live#action" data-live-action-param="applyFilters" class="button__search">
+            <input type="text"  data-model="norender|query"  class="input__text title__desk__1-to-1_5--500" placeholder="Rechercher un adherent">
+        </div>
+        <span style='display:none'>filtrer + </span>
+    </div >
+
+    <div class='filters'>
+
+        <div class="filters__checkboxContainer">
+
+            {% for groupe in groupesList %}
+                <div class="checkbox__container">
+                    <p class="checkbox__label">{{groupe}}</p>
+                    <label class="checkbox__switch">
+                        <input type="checkbox" data-model='on(change)|groupe[]' data-action="live#action" data-live-action-param="applyFilters" value={{groupe}} class="checkbox">
+                        <span></span>
+                    </label>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="filters__selectContainer" >
+            
+            <div  class="custom-select">
+                <select data-model='ageCategoryFilter'  data-action="live#action" data-live-action-param="applyFilters">
+                    <option value='' >Catégorie d'age</option>
+                    
+                    {% for ageCategorie in ageCategories %}
+                        <option value="{{ageCategorie}}">{{ageCategorie}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="custom-select">
+                <select data-model='gradeFilter' data-action="live#action" data-live-action-param="applyFilters">
+                    <option value='' >Grade</option>
+                        {% for grade in grades %}
+                            <option value="{{grade}}">{{grade}}</option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="custom-select">
+                <select data-model='arbitreFilter' data-action="live#action" data-live-action-param="applyFilters">
+                    <option value='' >Arbitrage</option>
+                    
+                        {% for lvl in lvls %}
+                            <option value="{{lvl}}">{{lvl}}</option>
+                        {% endfor %}
+
+                </select>
+            </div>
+
+            <div class="custom-select">
+                <select data-model='commissaireFilter' data-action="live#action" data-live-action-param="applyFilters">
+                    <option value='' >Commissaire</option>
+                    
+                        {% for lvl in lvls %}
+                            <option value="{{lvl}}">{{lvl}}</option>
+                        {% endfor %}
+                    
+                </select>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class='result'  >
+    
+        
+        <div class="result__grid" >
+    
+
+            {% for adherent in this.adherents %}
+
+
+                {{ component('UserCard', {
+                    index: loop.index ,
+                    uuid: adherent.uuid,
+                    prenom : adherent.prenom,
+                    nom : adherent.nom,
+                    dnd : adherent.birthAt,
+                    nlicence : adherent.numero,
+                    ceinture : adherent.ceinture,
+                    grade : adherent.grade,
+                    page: page,
+                    per_page: this.perPage
+                
+                }) }}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</div>

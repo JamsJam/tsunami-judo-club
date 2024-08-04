@@ -2,16 +2,76 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            {% block SEO %}{% endblock %}
+
+        <title>{% block title %}Tsunami Club | {% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        
         {% block stylesheets %}
+            {# <link rel="stylesheet" href="{{ asset('styles/shared.scss') }}"> #}
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+
+            {% block importmap %}{{ importmap(['app']) }}{% endblock %}
+
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body
+        {{ stimulus_controller('symfony/ux-swup/swup', {
+            containers: ['#swup', '#card', '.userCard']
+        }) }}
+    >
+    
+        <header data-controller="header" {{stimulus_controller('header')| stimulus_action('header', 'onResize', "resize@window" ) | stimulus_target('header', 'header') }}>
+            <div>
+                <a href="" class="logo">Tsunami Club</a>
+            </div>
+
+            <nav class="navigation" {{ stimulus_target('header', 'navDesktop') }}>
+                <a href="" class="title__header navigation__item">Accueil</a>
+                <a href="" class="title__header navigation__item">Calendrier</a>
+                <a href="" class="title__header navigation__item">Notre club</a>
+                
+                {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
+                    
+                    <a href="" class="title__header navigation__item">Connexion</a>
+                    <a href="" class="button__primary-header">Inscription</a>
+                    
+                {% else %}
+                    <a href="" class="navigation__item">Mon Espace</a>
+                    
+                    {% if is_granted("Admin") %}
+                        <a href="" class="navigation__item">Espace admin</a>
+                        
+                    {% endif %}
+                {% endif %}
+            </nav>
+
+            <div class="burger" {{ stimulus_controller('burger') | stimulus_target('header', 'burger') | stimulus_target('burger', 'burger') | stimulus_action('burger' ,'activateBurger','click')  }}>
+                <span class="burger__slice"></span>
+                <span class="burger__slice"></span>
+                <span class="burger__slice"></span>
+            </div>
+
+
+
+
+
+        </header>
+        
+        <main class="{% block mainClass %}{% endblock %}" id='swup'>
+            <div class="navigationMobile__container" {{stimulus_target('burger', 'navMobile') | stimulus_target('header', 'navMobile')}} id="navMobile"> {# 100vh #}
+                <div class="navigationMobile">
+                    <div class="navigationMobile__logo"></div>
+                    <div class="navigationMobile__list"></div>
+                </div>
+            </div>
+            {% block body %}{% endblock %}
+        </main>
+        
+        <footer></footer>
+    
     </body>
-</html>

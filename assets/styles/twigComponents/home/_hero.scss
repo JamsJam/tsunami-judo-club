@@ -1,0 +1,124 @@
+@use '../../shared/abstract/' as * ;
+@use '../../shared/typographie/' as *;
+
+$imageColorTable: (
+        header: (
+            color: #262626cc,  // Couleur pour la section "header"
+            image: '../images/backgrounds/backgroundHomeTileHeader.jpg' // Lien d'image pour la section "header"
+        ),
+        horraire: (
+            color: #a2874cd4,  // Couleur pour la section "horraire"
+            image: '../images/backgrounds/backgroundHomeTileHorraire.jpg' // Lien d'image pour la section "horraire"
+        ),
+        evenement: (
+            color: #595a5cd4,  // Couleur pour la section "evenement"
+            image: '../images/backgrounds/backgroundHomeTileEvenement.jpg' // Lien d'image pour la section "evenement"
+        ),
+        contact: (
+            color: #343434b3,  // Couleur pour la section "contact"
+            image: '../images/backgrounds/backgroundHomeTileContact.jpg' // Lien d'image pour la section "contact"
+        ),
+        discipline: (
+            color: #7f4d4dd4,  // Couleur pour la section "discipline"
+            image: '../images/backgrounds/backgroundHomeTileDiscipline.jpg' // Lien d'image pour la section "discipline"
+        ),
+        inscription: (
+            color: #617885b3,  // Couleur pour la section "inscription"
+            image: '../images/backgrounds/backgroundHomeTileInscription.jpg' // Lien d'image pour la section "inscription")
+        )
+    );
+
+
+.homeHero{
+    width: 100%;
+    height: 100%;
+
+    position:relative;
+
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        
+
+        background-color: hsla(0, 0%, 0%, 0.7)
+    }
+
+
+    &__container{
+        width: 100%;
+        height: 100%;
+
+        position: relative;
+        z-index: 1;
+
+        @extend %flex-column-around-center;
+
+
+        color: $neutral-95;
+
+        transition: background-color ease-in-out 250ms;
+
+        padding: 2rem;
+
+
+
+
+        h1{
+            font-size: clamp(1.5rem, -0.2143rem + 3.5714vw, 3rem);
+
+            text-align: center;
+        }
+
+
+        h2{
+            font-size: clamp(1.5rem, 0.9286rem + 1.1905vw, 2rem);
+            text-align: center;
+        }
+        
+        p{
+            font-size: clamp(1.25rem, 0.9643rem + 0.5952vw, 1.5rem);
+            text-align: center;
+
+            padding-inline: clamp(2rem, -4.8571rem + 14.2857vw, 8rem);
+        }
+
+
+        .button__container{
+            width: 100%;
+            @extend %flex-row-center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+    }
+
+
+    @each $key, $properties in $imageColorTable {
+        $color: map-get($properties, color);
+        $image: map-get($properties, image);
+
+        &--#{$key}{
+            
+            background: url(#{$image}) center/cover no-repeat;
+            
+            .homeHero__container{
+                background-color: $color;
+            }
+            
+            &:hover{
+
+                .homeHero__container{
+                    background-color: #00000000;
+                }
+            }
+        }
+    }
+
+}

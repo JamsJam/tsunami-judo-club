@@ -1,0 +1,52 @@
+<div{{ attributes }}
+    class="homeHero homeHero--{{key}} "
+    
+>
+    <div class="homeHero__container">
+
+
+        {# h1? h1.text #}
+        {% if this.homeTile.h1 is defined %}
+        
+            <h1>{{ this.homeTile.h1 }}</h1>
+        
+        {% endif %}
+
+
+        {# title.text #}
+        {% if this.homeTile.h2 is defined %}
+
+            <h2>{{this.homeTile.h2}}</h2>
+
+        {% endif %}
+
+
+        {# desc.text #}
+        {% if this.homeTile.description is defined %}
+        
+            <p>{{this.homeTile.description}}</p>
+        
+        {% endif %}
+
+        <div class='button__container'>
+
+            {% if this.homeTile.ctaPrim is defined %}
+        
+                <a href="{{this.homeTile.ctaPrim.path}}" class="button__primary">{{this.homeTile.ctaPrim.text}}</a> 
+            
+            {% endif %}
+
+
+            
+            {# cta path, cta text,   #}
+        
+        
+            {% if this.homeTile.ctaSec is defined %}
+        
+                <a href="{{this.homeTile.ctaSec.path}}" class="button__secondary">{{this.homeTile.ctaSec.text}}</a> 
+            
+            {% endif %}
+
+        </div>
+    </div>
+</div>
