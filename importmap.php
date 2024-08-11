@@ -16,37 +16,58 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
-    '@hotwired/stimulus' => [
-        'version' => '3.2.2',
-    ],
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
-    '@hotwired/turbo' => [
-        'version' => '7.3.0',
-    ],
-    '@swup/fade-theme' => [
-        'version' => '1.0.5',
-    ],
-    '@swup/slide-theme' => [
-        'version' => '1.0.5',
-    ],
-    '@swup/forms-plugin' => [
-        'version' => '2.0.1',
-    ],
-    '@swup/plugin' => [
-        'version' => '2.0.3',
-    ],
-    'swup' => [
-        'version' => '3.1.1',
-    ],
-    'delegate-it' => [
-        'version' => '6.0.1',
-    ],
-    '@swup/debug-plugin' => [
-        'version' => '3.0.0',
-    ],
     '@symfony/ux-live-component' => [
         'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
+    '@hotwired/turbo' => [
+        'version' => '8.0.5',
+    ],
+    '@swup/fade-theme' => [
+        'version' => '2.0.1',
+    ],
+    '@swup/slide-theme' => [
+        'version' => '2.0.1',
+    ],
+    '@swup/forms-plugin' => [
+        'version' => '3.6.0',
+    ],
+    '@swup/plugin' => [
+        'version' => '4.0.0',
+    ],
+    'swup' => [
+        'version' => '4.7.0',
+    ],
+    'delegate-it' => [
+        'version' => '6.1.0',
+    ],
+    '@swup/debug-plugin' => [
+        'version' => '4.1.0',
+    ],
+    '@swup/theme' => [
+        'version' => '2.1.0',
+    ],
+    'path-to-regexp' => [
+        'version' => '6.2.2',
+    ],
+    'dayjs' => [
+        'version' => '1.11.12',
+    ],
+    'dayjs/plugin/advancedFormat' => [
+        'version' => '1.11.12',
+    ],
+    'dayjs/plugin/localeData' => [
+        'version' => '1.11.12',
+    ],
+    'dayjs/locale/fr' => [
+        'version' => '1.11.12',
+    ],
+    'dayjs/plugin/localizedFormat' => [
+        'version' => '1.11.12',
     ],
 ];

@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\LicenceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Event;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LicenceRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: LicenceRepository::class)]
 class Licence
@@ -66,10 +67,24 @@ class Licence
     #[ORM\ManyToOne(inversedBy: 'licence')]
     private ?Type $type = null;
 
+    /**
+     * @var Collection<int, Event>
+     */
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'invite')]
+    private Collection $inviteTo;
+
+    /**
+     * @var Collection<int, Participation>
+     */
+    #[ORM\OneToMany(targetEntity: Participation::class, mappedBy: 'licence')]
+    private Collection $participations;
+
     public function __construct()
     {
         $this->certificates = new ArrayCollection();
         $this->groupes = new ArrayCollection();
+        $this->inviteTo = new ArrayCollection();
+        $this->participations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -295,6 +310,63 @@ class Licence
     public function setType(?Type $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getInviteTo(): Collection
+    {
+        return $this->inviteTo;
+    }
+
+    public function addInviteTo(Event $inviteTo): static
+    {
+        if (!$this->inviteTo->contains($inviteTo)) {
+            $this->inviteTo->add($inviteTo);
+            $inviteTo->addInvite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInviteTo(Event $inviteTo): static
+    {
+        if ($this->inviteTo->removeElement($inviteTo)) {
+            $inviteTo->removeInvite($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participation>
+     */
+    public function getParticipations(): Collection
+    {
+        return $this->participations;
+    }
+
+    public function addParticipation(Participation $participation): static
+    {
+        if (!$this->participations->contains($participation)) {
+            $this->participations->add($participation);
+            $participation->setLicence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(Participation $participation): static
+    {
+        if ($this->participations->removeElement($participation)) {
+            // set the owning side to null (unless already changed)
+            if ($participation->getLicence() === $this) {
+                $participation->setLicence(null);
+            }
+        }
 
         return $this;
     }

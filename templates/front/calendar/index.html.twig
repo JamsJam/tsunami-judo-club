@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CalendarController!{% endblock %}
+{% block mainClass %}calendar{% endblock %}
+
+{% block body %}
+
+
+    {# <div class="calendar-container" {{stimulus_controller('calendar')}}
+    style="
+    width: 2000px !important;
+    height: 1000px;
+    background-color: tan;
+"
+    >
+
+        <div id="fullcalendar" {{stimulus_target('calendar','fullcalendar')}} style="
+    width: 2000px !important;
+    height: 1000px;
+    background-color: tan;
+">
+        </div> #}
+            
+    {# </div> #}
+
+
+
+    <h1>Calendrier</h1>
+
+    <twig:Calendar:CalendarComponent />
+    
+{% endblock %}

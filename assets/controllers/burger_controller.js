@@ -12,7 +12,17 @@ export default class extends Controller {
         active: {type: Boolean, default: false} ,
     }
 
-    initialize(){}
+    initialize(){
+
+    }
+    
+    connect(){
+    }
+    
+    onBurgerTargetConnect(){
+        activateBurger()
+
+    }
 
     toogleState(){
         this.activeValue = !this.activeValue 
