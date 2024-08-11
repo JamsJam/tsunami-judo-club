@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='fr'>
     <head>
         <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +21,7 @@
     </head>
     <body
         {{ stimulus_controller('symfony/ux-swup/swup', {
-            containers: ['#swup', '#card', '.userCard'],
+            containers: ['#swup'],
             animateHistoryBrowsing: true,
             theme: 'slide',
             direction: 'to-right'
@@ -61,8 +61,8 @@
             </div>
 
             <nav class="navigation" {{ stimulus_target('header', 'navDesktop') }}>
-                <a href="" class="title__header navigation__item">Accueil</a>
-                <a href="" class="title__header navigation__item">Calendrier</a>
+                <a href="{{path('app_home')}}" class="title__header navigation__item">Accueil</a>
+                <a href="{{path('app_front_calendar')}}" class="title__header navigation__item">Calendrier</a>
                 <a href="" class="title__header navigation__item">Notre club</a>
                 
                 {% if not is_granted("IS_AUTHENTICATED_FULLY") %}

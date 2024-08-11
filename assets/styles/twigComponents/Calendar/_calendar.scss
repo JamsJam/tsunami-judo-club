@@ -1,0 +1,72 @@
+@use '../../shared/abstract/' as * ;
+@use '../../shared/typographie/' as *;
+
+.calendar{
+
+    &__container{
+        width: 90vw;
+        height: 800px;
+        margin-inline: auto;
+        display: grid;
+        grid-template-areas: 
+            'header header header header header header header header header header header header header header'
+            'header header header header header header header header header header header header header header'
+            'day day day day day day day day day day day day day day'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            'grid grid grid grid grid grid grid grid grid grid grid grid grid grid'
+            
+        ;
+    }
+
+    &__header{
+        grid-area: header;
+        background-color: blue;
+
+        @extend %flex-column-around-center
+    }
+    &__dayHeader{
+        grid-area: day;
+        background-color: blueviolet;
+        
+        display: grid;
+        grid-template-columns: repeat(7,1fr);
+        place-items: center;
+    }
+
+    &__grid{
+        grid-area: grid;
+        background-color: darkgreen;
+
+        display: grid;
+        grid-template-columns: repeat(7,1fr);
+        // place-items: center;
+
+        .gridcell{
+            height: 100%;
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            &:nth-child(odd){
+                background-color: rgb(25, 26, 56);
+            }
+            
+            &:nth-child(even){
+                background-color: rgb(55, 46, 35);
+            }
+        }
+    }
+    &_year{}
+
+    &_day{}
+}

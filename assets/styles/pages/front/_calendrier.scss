@@ -1,0 +1,8 @@
+@use '../../shared/abstract/' as * ;
+
+h1{
+    font-size: clamp(1.5rem, -0.2143rem + 3.5714vw, 3rem);
+    text-align: center;
+    margin-bottom: 2rem;
+    
+}

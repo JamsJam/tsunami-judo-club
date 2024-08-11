@@ -13,11 +13,16 @@ export default class extends Controller {
         responsiveMode : String
     } ;
 
-    connect() {
+    initialize(){
 
         this.responsiveModeValue =  this.setResponsiveState();
+    }
+
+    connect() {
+
 
         this.adapteResponsiveNav(this.responsiveModeValue);
+        
     }
 
 

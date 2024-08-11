@@ -1,0 +1,179 @@
+<div {{ attributes.defaults(stimulus_controller('calendar',{'today' : today } )) }}
+style='width:100%'
+>
+    {# <script>console.log('{{today}}')</script> #}
+
+    <div class="calendar__container" >
+
+
+        <div class="calendar__header">
+
+
+            <div class="calendar_year" {{stimulus_target('calendar','years')}}>
+
+            </div>
+
+
+            <div class="calendar__month" {{stimulus_target('calendar','month')}}>
+            
+            </div>
+            
+        </div>
+
+
+
+
+        <div class="calendar__dayHeader" {{stimulus_target('calendar','daysContainer')}}>
+            <p>Lundi</p>
+            <p>Mardi</p>
+            <p>Mercredi</p>
+            <p>Jeudi</p>
+            <p>Vendredi</p>
+            <p>Samedi</p>
+            <p>Dimanche</p>
+        </div>
+
+        <div class="calendar__grid" {{stimulus_target('calendar','daysContainer')}}>
+        
+            {% if days|length == 35 %}
+                {% for day in days %}
+                    {% set todayEvent = this.events|filter(event => event.beginAt|date('d-m-Y') == day.date)|first %}
+
+                    {% if todayEvent|length > 0 %}
+                            
+
+                        {{ component('Calendar/DayComponent', {
+                            date: day.date,
+                            class: 'gridcell'
+                        }) }}
+
+                    {% else %}
+                        
+                        {{ component('Calendar/DayComponent', {
+                            date: day.date,
+                            class : 'gridcell'
+                        }) }}
+                    {% endif %}
+
+                {% endfor %} 
+            {# <pre>
+                {{ dump(this.events) }}
+            </pre> #}
+            
+            {% else %}
+                
+            
+                <div class="gridcell">
+                    <p>1</p>
+                </div>
+                <div class="gridcell">
+                    <p>2</p>
+                </div>
+                <div class="gridcell">
+                    <p>3</p>
+                </div>
+                <div class="gridcell">
+                    <p>4</p>
+                </div>
+                <div class="gridcell">
+                    <p>5</p>
+                </div>
+                <div class="gridcell">
+                    <p>6</p>
+                </div>
+                <div class="gridcell">
+                    <p>7</p>
+                </div>
+                <div class="gridcell">
+                    <p>8</p>
+                </div>
+                <div class="gridcell">
+                    <p>9</p>
+                </div>
+                <div class="gridcell">
+                    <p>10</p>
+                </div>
+                <div class="gridcell">
+                    <p>11</p>
+                </div>
+                <div class="gridcell">
+                    <p>12</p>
+                </div>
+                <div class="gridcell">
+                    <p>13</p>
+                </div>
+                <div class="gridcell">
+                    <p>14</p>
+                </div>
+                <div class="gridcell">
+                    <p>15</p>
+                </div>
+                <div class="gridcell">
+                    <p>16</p>
+                </div>
+                <div class="gridcell">
+                    <p>17</p>
+                </div>
+                <div class="gridcell">
+                    <p>18</p>
+                </div>
+                <div class="gridcell">
+                    <p>19</p>
+                </div>
+                <div class="gridcell">
+                    <p>20</p>
+                </div>
+                <div class="gridcell">
+                    <p>21</p>
+                </div>
+                <div class="gridcell">
+                    <p>22</p>
+                </div>
+                <div class="gridcell">
+                    <p>23</p>
+                </div>
+                <div class="gridcell">
+                    <p>24</p>
+                </div>
+                <div class="gridcell">
+                    <p>25</p>
+                </div>
+                <div class="gridcell">
+                    <p>26</p>
+                </div>
+                <div class="gridcell">
+                    <p>27</p>
+                </div>
+                <div class="gridcell">
+                    <p>28</p>
+                </div>
+                <div class="gridcell">
+                    <p>29</p>
+                </div>
+                <div class="gridcell">
+                    <p>30</p>
+                </div>
+                <div class="gridcell">
+                    <p>31</p>
+                </div>
+                <div class="gridcell">
+                    <p>32</p>
+                </div>
+                <div class="gridcell">
+                    <p>33</p>
+                </div>
+                <div class="gridcell">
+                    <p>34</p>
+                </div>
+                <div class="gridcell">
+                    <p>35</p>
+                </div>
+            {% endif %}
+
+        </div>
+
+
+
+    </div>
+
+</div>

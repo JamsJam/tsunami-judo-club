@@ -1,0 +1,16 @@
+<div{{ attributes }}>
+
+
+        {% if todayEvent is defined  %}
+
+                {% for event in todayEvent %}
+                <div>
+                        <p>{{ event.titre }}</p>
+                        <p>{{ event.beginAt|date('d-m-Y') }}</p>
+                </div>
+                {# Add other event details if needed #}
+                {% endfor %}
+        {% else %}
+        <p>{{ date }}</p>
+    {% endif %}
+</div>

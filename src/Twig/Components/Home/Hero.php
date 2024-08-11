@@ -5,8 +5,6 @@ namespace App\Twig\Components\Home;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
-
-
 class Hero
 {
     private array $homeInfo = [
@@ -46,10 +44,10 @@ class Hero
         'evenement' => [
             'h2' => 'Un club  de Judo dynamique',
             'description' => 'Que ça soit en terme de competition, de stage ou de formation, le tsunami club participe et organise de nombreux evenements',
-            // 'ctaSec' => [
-            //     'path' => 'app_evenements',
-            //     'text' => 'Nos evenements'
-            // ],
+            'ctaSec' => [
+                'path' => 'app_front_calendar',
+                'text' => 'Nos evenements'
+            ],
         ],
         'contact' => [
             'h2' => 'Un contact facilité et privilegié',

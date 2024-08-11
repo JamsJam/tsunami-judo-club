@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Licence;
+use App\Entity\Eventstype;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Licence>
+ * @extends ServiceEntityRepository<Eventstype>
  */
-class LicenceRepository extends ServiceEntityRepository
+class EventstypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Licence::class);
+        parent::__construct($registry, Eventstype::class);
     }
 
     //    /**
-    //     * @return Licence[] Returns an array of Licence objects
+    //     * @return Eventstype[] Returns an array of Eventstype objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('l.id', 'ASC')
+    //            ->orderBy('e.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Licence
+    //    public function findOneBySomeField($value): ?Eventstype
     //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
+    //        return $this->createQueryBuilder('e')
+    //            ->andWhere('e.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()
