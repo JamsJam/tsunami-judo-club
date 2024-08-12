@@ -18,7 +18,8 @@ class AdherentController extends AbstractController
     public function index(AdherentRepository $adherentRepository): Response
     {
         $adherents = $adherentRepository->findAllByJoinedToLicence();
-        $adherents;
+        // $adherents;
+
         return $this->render('adherent/index.html.twig', [
             'adherents' => $adherents ,
         ]);
