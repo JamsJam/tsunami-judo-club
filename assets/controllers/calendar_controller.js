@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import { getComponent } from '@symfony/ux-live-component';
 import dayjs from 'dayjs';
 import fr from 'dayjs/locale/fr';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import localeData from 'dayjs/plugin/localeData';
 
 /* stimulusFetch: 'lazy' */
@@ -14,185 +14,207 @@ export default class extends Controller {
         today: String,
         year: String,
         month: String,
-        daysInMonth: Number,
-        componentInitialize: { type: Boolean, default: false }
+        daysInMonth: Number
     };
 
-    //? ============== Initialize
-
+    
     async initialize() {
+
+
         // Extend Day.js with localeData and set the locale to French
         dayjs.locale(fr);
-        dayjs.extend(localeData, localizedFormat);
-        this.getRightFormat(this.todayValue, 'DD-MM-YYYY');
+        dayjs.extend(localeData, localizedFormat );
+        this.getRightFormat(this.todayValue, 'DD-MM-YYYY')
 
         try {
-            //? ========== Initialize component
-            this.component = await getComponent(this.element);
-            this.confirmInitialize();
 
-            //? ========== Component Event Trigger
-            this.component.on('model:set', (model, value) => {
-                if (model == 'value') this.handelTodayChange(value);
-                if (model == 'days') {
-                    // Handle 'days' model change
-                }
+
+            //? ========== initialize component
+            this.component = await getComponent(this.element);
+            console.log('Component successfully initialized:', this.component);
+
+            //? ========== component Event triger
+            this.component.on('model:set', (model, value, component) => {
+                
+                model =='today' && this.handelTodayChange(value)
+
             });
+
 
         } catch (error) {
             console.error('Failed to initialize component:', error);
         }
     }
 
-    //? ============== Target Connect
+
+    /**
+     * 
+     * @param {String} date date d'aujourd'hui
+     * @param {string} format format de sortie default: DD-MM-YYYY 
+     */
+    getRightFormat(date,format){
+
+        this.todayValue = dayjs(date).format(format = 'DD-MM-YYYY')
+    }
+
+    handelTodayChange(value) {
+        this.todayValue = value
+        this.getRightFormat(value )
+        this.setDayInMonth()
+        this.yearFromToday()
+        this.monthFromToday()
+    }
+
 
     yearsTargetConnected() {
         // Display the year from the 'today' value
         this.yearValue = String(dayjs(this.todayValue).year());
         this.yearsTarget.innerHTML = `<p>${this.yearValue}</p>`;
+        console.log('Year connected:', this.yearValue);
     }
 
     monthTargetConnected() {
         // Display the month from the 'today' value in French
         this.monthValue = dayjs.months()[dayjs(this.todayValue).month()];
         this.monthTarget.innerHTML = `<p>${this.monthValue}</p>`;
+        console.log('Month connected:', this.monthValue);
     }
 
-    daysContainerTargetConnected() {
+    daysContainerTargetContainer(){
+
+        this.setDayInMonth()
+        // this.component.set('today','04-02-2000')
+    }
+
+
+     connect() {
+        // Calculate and update the number of days in the month
+        
         this.setDayInMonth();
+        console.log('CONNECT',this.getDayBefore(this.todayValue))
+        console.log('CONNECT',this.getDayCurrent(this.todayValue, this.daysInMonthValue))
+
     }
-
-    //? ============== Component Event Listener
-
-    handleReload() {
-        this.setDayInMonth();
-        this.component.render();
-    }
-
-    //? ============== Utility Methods
 
     /**
-     * Format the given date to the specified format
-     * @param {String} date - The date to format
-     * @param {String} format - The format to use (default: DD-MM-YYYY)
+     * 
+     * @param {dayjs} today 
+     * @returns {Array} days to display before the current days'month
      */
-    getRightFormat(date, format = 'DD-MM-YYYY') {
-        this.todayValue = dayjs(date).format(format);
-    }
+    getDayBefore(today){
+        const firstDayIndex = dayjs(today).date(1).day()
+        console.log(firstDayIndex)
+        const daysBefore = []
+        if(firstDayIndex !== 0){
 
-    confirmInitialize() {
-        this.confirmInitializeValue = true;
-        const daysToDisplay = this.getDayBefore(this.todayValue)
-            .concat(this.getDayCurrent(this.todayValue, this.daysInMonthValue))
-            .concat(this.getDayNext(this.todayValue, this.daysInMonthValue));
-        this.setDisplayDay(daysToDisplay, this.component);
-    }
+            const daysBeforeNumber = firstDayIndex - 1 
+            
 
-    handelTodayChange(value) {
-        this.todayValue = value;
-        this.getRightFormat(value);
-        this.setDayInMonth();
-        this.yearFromToday();
-        this.monthFromToday();
-    }
-
-    connect() {
-        this.setDayInMonth();
-    }
-
-    //? ============== Date Calculation Methods
-
-    /**
-     * Get the days before the current month
-     * @param {dayjs} today - The current date
-     * @returns {Array} - Array of days before the current month
-     */
-    getDayBefore(today) {
-        const firstDayIndex = dayjs(today).date(1).day();
-        const daysBefore = [];
-        if (firstDayIndex !== 0) {
-            const daysBeforeNumber = firstDayIndex - 1;
-            for (let index = 0; index < daysBeforeNumber; index++) {
+            for (let index = 0; index < daysBeforeNumber ; index++) {
                 const element = dayjs(today).date(parseInt(`-${index}`));
+                
                 daysBefore.push({
                     date: element.format('DD-MM-YYYY'),
                     id: element.format('DDMMYYYY')
-                });
+                })
             }
         }
-        return daysBefore.sort((a, b) => new Date(a.date.split('-').reverse().join('-')) - new Date(b.date.split('-').reverse().join('-')));
+
+        return daysBefore.sort((a, b) => {
+            // Convertir les dates au format JJ-MM-AAAA en objets Date
+            let dateA = new Date(a.date.split('-').reverse().join('-'));
+            let dateB = new Date(b.date.split('-').reverse().join('-'));
+            
+            return dateA - dateB; // Tri ascendant
+        });
     }
 
     /**
-     * Get the days after the current month
-     * @param {dayjs} today - The current date
-     * @param {int} dayInMonth - Number of days in the current month
-     * @returns {Array} - Array of days after the current month
+     * 
+     * @param {dayjs} today 
+     * @param {int} dayInMonth days in the rcurrent month
+     * @returns {Array} days to display next the current days'month
      */
-    getDayNext(today, dayInMonth) {
-        const lastDayIndex = dayjs(today).date(dayInMonth).day();
-        const daysNext = [];
-        if (lastDayIndex !== 0) {
-            const daysNextNumber = 7 - lastDayIndex;
-            for (let index = 1; index <= daysNextNumber; index++) {
+    getDayNext(today,dayInMonth){
+        const lastDayIndex = dayjs(today,).date(dayInMonth).day()
+ 
+        const daysNext = []
+
+        if ( lastDayIndex !== 0) {
+
+            const daysNextNumber =  7 - lastDayIndex 
+            
+
+            for (let index = 1; index < daysNextNumber ; index++) {
                 const element = dayjs(today).date(index + dayInMonth);
+                
                 daysNext.push({
                     date: element.format('DD-MM-YYYY'),
                     id: element.format('DDMMYYYY')
-                });
+                })
             }
         }
-        return daysNext.sort();
+
+        return daysNext.sort()
+    }
+    /**
+     * 
+     * @param {dayjs} today today
+     * @param {int} dayInMonth days in the rcurrent month
+     * @returns {Array} days the current days'month
+     * 
+     */
+    getDayCurrent(today, dayInMonth){
+
+        // const firstDayIndex = dayjs(today).date(1).day()
+ 
+        const daysCurrent = []
+        
+            for (let index = 1; index <= dayInMonth ; index++) {
+                const element = dayjs(today).date(parseInt(index));
+                
+                daysCurrent.push({
+                    date: element.format('DD-MM-YYYY'),
+                    id: element.format('DDMMYYYY'),
+                })
+            }
+        return daysCurrent
     }
 
-    /**
-     * Get the days of the current month
-     * @param {dayjs} today - The current date
-     * @param {int} dayInMonth - Number of days in the current month
-     * @returns {Array} - Array of days in the current month
-     */
-    getDayCurrent(today, dayInMonth) {
-        const daysCurrent = [];
-        for (let index = 1; index <= dayInMonth; index++) {
-            const element = dayjs(today).date(parseInt(index));
-            daysCurrent.push({
-                date: element.format('DD-MM-YYYY'),
-                id: element.format('DDMMYYYY'),
-            });
-        }
-        return daysCurrent;
-    }
 
-    /**
-     * Display the calculated days in the component
-     * @param {Array} monthDays - The days to display
-     * @param {Object} component - The component to update
-     */
-    setDisplayDay(monthDays, component) {
-        component.set('days', monthDays);
-        console.log(monthDays.at(0),monthDays.at(-1))
-        component.set('beginCalendar', monthDays.at(0).date);
-        component.set('endCalendar', monthDays.at(-1).date);
-        component.action('getEvents')
-        // component.emit('eventArray');
-        component.render();
+
+    setDayInMonth() {
+
+        this.daysInMonthValue = dayjs(this.todayValue).daysInMonth();
         
     }
 
-    /**
-     * Calculate and update the number of days in the current month
-     */
-    setDayInMonth() {
-        this.daysInMonthValue = dayjs(this.todayValue).daysInMonth();
+
+    handleReload(){
+        
+        this.setDayInMonth()
+        // this.component.set('today','04-02-2000')
+        // this.component.on('model:set'),(model, value, component) => {
+        //     console.log(model, value, component) 
+        // }
+        // this.component.set('dayInMonth',this.daysInMonthValue)
+        // this.daysInMonthValue = dayjs(this.todayValue).daysInMonth()
+        // this.yearFromToday()
+        // this.monthFromToday()
+        this.component.render()
+        console.log(this.todayValue)
+
     }
 
-    yearFromToday() {
+    yearFromToday(){
         this.yearValue = String(dayjs(this.todayValue).year());
         this.yearsTarget.innerHTML = `<p>${this.yearValue}</p>`;
+        console.log('Year connected:', this.yearValue);
     }
 
-    monthFromToday() {
+    monthFromToday(){
         this.monthValue = dayjs.months()[dayjs(this.todayValue).month()];
         this.monthTarget.innerHTML = `<p>${this.monthValue}</p>`;
+        console.log('Month connected:', this.monthValue);
     }
 }

@@ -37,28 +37,26 @@ style='width:100%'
         
             {% if days|length == 35 %}
                 {% for day in days %}
-                    {% set todayEvent = this.events|filter(event => event.beginAt|date('d-m-Y') == day.date)|first %}
+   
+                    <twig:Calendar:DayComponent 
+                        day="{{day}}"
+                        class='gridcell'
 
-                    {% if todayEvent|length > 0 %}
-                            
-
-                        {{ component('Calendar/DayComponent', {
-                            date: day.date,
-                            class: 'gridcell'
-                        }) }}
-
-                    {% else %}
                         
-                        {{ component('Calendar/DayComponent', {
-                            date: day.date,
-                            class : 'gridcell'
-                        }) }}
-                    {% endif %}
+                  
+                        {% if this.events|filter(event => event.beginAt|date('d-m-Y') == day.date ) %}
 
+                        todayEvent = "{{ this.events|filter(event => event.beginAt|date('d-m-Y') == day.date ) }}"
+
+                            {# {% for event in this.events %}
+                                {% if event.beginAt|date('d-m-Y') == day.date %}
+                                    
+                                {% endif %}
+                            {% endfor %} #}
+                        {% endif %}
+                    />
                 {% endfor %} 
-            {# <pre>
-                {{ dump(this.events) }}
-            </pre> #}
+
             
             {% else %}
                 
@@ -169,7 +167,19 @@ style='width:100%'
                     <p>35</p>
                 </div>
             {% endif %}
+{# 
+            {% if this.events is defined %}
+                {% for event in this.events %}
 
+                        <div>
+                            {{ dump(event.titre) }}
+
+
+                        </div>
+
+                    {% endfor %} 
+            {% endif %}  
+#}
         </div>
 
 
