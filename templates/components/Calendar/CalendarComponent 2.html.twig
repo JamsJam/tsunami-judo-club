@@ -37,26 +37,28 @@ style='width:100%'
         
             {% if days|length == 35 %}
                 {% for day in days %}
-   
-                    <twig:Calendar:DayComponent 
-                        day="{{day}}"
-                        class='gridcell'
+                    {% set todayEvent = this.events|filter(event => event.beginAt|date('d-m-Y') == day.date)|first %}
 
+                    {% if todayEvent|length > 0 %}
+                            
+
+                        {{ component('Calendar/DayComponent', {
+                            date: day.date,
+                            class: 'gridcell'
+                        }) }}
+
+                    {% else %}
                         
-                  
-                        {% if this.events|filter(event => event.beginAt|date('d-m-Y') == day.date ) %}
+                        {{ component('Calendar/DayComponent', {
+                            date: day.date,
+                            class : 'gridcell'
+                        }) }}
+                    {% endif %}
 
-                        todayEvent = "{{ this.events|filter(event => event.beginAt|date('d-m-Y') == day.date ) }}"
-
-                            {# {% for event in this.events %}
-                                {% if event.beginAt|date('d-m-Y') == day.date %}
-                                    
-                                {% endif %}
-                            {% endfor %} #}
-                        {% endif %}
-                    />
                 {% endfor %} 
-
+            {# <pre>
+                {{ dump(this.events) }}
+            </pre> #}
             
             {% else %}
                 
@@ -167,19 +169,7 @@ style='width:100%'
                     <p>35</p>
                 </div>
             {% endif %}
-{# 
-            {% if this.events is defined %}
-                {% for event in this.events %}
 
-                        <div>
-                            {{ dump(event.titre) }}
-
-
-                        </div>
-
-                    {% endfor %} 
-            {% endif %}  
-#}
         </div>
 
 

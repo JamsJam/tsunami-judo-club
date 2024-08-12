@@ -10,7 +10,9 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+
 class Event
 {
     #[ORM\Id]
@@ -30,7 +32,7 @@ class Event
     #[ORM\Column]
     private ?\DateTimeImmutable $beginAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $endAt = null;
 
     #[ORM\Column(length: 255)]
@@ -64,8 +66,10 @@ class Event
     #[ORM\ManyToMany(targetEntity: Participationtype::class)]
     private Collection $need;
 
+    
     public function __construct()
     {
+        $this->uuid = Uuid::v7();
         $this->invite = new ArrayCollection();
         $this->participations = new ArrayCollection();
         $this->need = new ArrayCollection();
