@@ -16,7 +16,7 @@ final class DayComponent
     public array $day;
     public array $todayEvent = [];
 
-    public function mount(array $day, ?string $todayEvent): void
+    public function mount(array $day, ?string $todayEvent = null): void
     {
         $this->day = $day;
         $this->todayEvent = $todayEvent ? json_decode($todayEvent, true) : [];

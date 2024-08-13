@@ -40,11 +40,11 @@ final class CalendarComponent
     public array $days = [];
 
 
-    #[LiveProp( hydrateWith: 'hydrateEvents', dehydrateWith: 'dehydrateEvents')]
+    // #[LiveProp( hydrateWith: 'hydrateEvents', dehydrateWith: 'dehydrateEvents')]
     /**
      * Undocumented variable
      *
-     * @var Event[]
+    //  * @var Event[]
      */
     // public ?Event $events = null;
 
@@ -93,11 +93,11 @@ final class CalendarComponent
     #[LiveAction]
     public function fetchEvent(){
         // dd($this->beginCalendar,$this->endCalendar);
-        $this->events = $this->hydrateEvents($this->eventRepository->calendarEvent(
+        $events = $this->eventRepository->calendarEvent(
             new DateTimeImmutable($this->beginCalendar),
             new DateTimeImmutable($this->endCalendar)
-        ));
-        //   = array_map([$this, 'isAllDayEvent'], $results);
+        );
+          $result = array_map([$this, 'isAllDayEvent'], $events);
         
         // dd($this->events);
         
@@ -111,7 +111,7 @@ final class CalendarComponent
             'titre' => $eventItem['titre'],
             'beginAt' => $eventItem['beginAt'],
             'endAt' => $eventItem['endAt'],
-            'type' => $eventItem['type'],
+            // 'type' => $eventItem['type'],
             'allday' => is_null($eventItem['endAt']),
             ];
     }
