@@ -99,6 +99,7 @@ final class CalendarComponent
         );
           $result = array_map([$this, 'isAllDayEvent'], $events);
         
+          
         // dd($this->events);
         
     }
