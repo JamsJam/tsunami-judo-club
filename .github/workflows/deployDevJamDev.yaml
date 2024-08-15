@@ -15,21 +15,8 @@ jobs:
           password: ${{ secrets.APP__PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/jam/web/tsunamidev.jamdev.fr/public_html/tsunami-judo-club; \
-echo "Pulling the latest changes from the git repository..."; \
-git pull; \
-echo "Installing composer dependencies..."; \
-COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader -n; \
-echo "Clearing the cache for production environment..."; \
-APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear; \
-echo "Running database migrations..."; \
-php bin/console d:m:m -n; \
-echo "Installing JavaScript dependencies using Importmap..."; \
-php bin/console importmap:install; \
-echo "Building SASS files..."; \
-php bin/console sass:build; \
-echo "Compiling asset map..."; \
-php bin/console asset-map:compile
+            cd /home/jam/web/tsunamidev.jamdev.fr/public_html/tsunami-judo-club; echo "Pulling the latest changes from the git repository..."; git pull; echo "Installing composer dependencies..."; COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader -n; echo "Clearing the cache for production environment..."; APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear; echo "Running database migrations..."; php bin/console d:m:m -n; echo "Installing JavaScript dependencies using Importmap..."; php bin/console importmap:install; echo "Building SASS files..."; php bin/console sass:build; echo "Compiling asset map..."; php bin/console asset-map:compile
+
       
 
 
