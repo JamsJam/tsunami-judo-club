@@ -66,6 +66,7 @@ class Hero
             //     'text' => 'Prenez votre licence',
             // ],
         ],
+        
     ];
     
     public string $key='contact';
