@@ -28,7 +28,7 @@ class Hero
             'description' => 'Le tsunami club propose des cours poour tous les ages, du plus petits au plus grands',
             'ctaSec' => [
                 'path' => 'app_front_contact',
-                'text' => 'Horaire',
+                'text' => 'Horaires',
                 'id'   => 'horaire'
             ],
         ],
