@@ -19,8 +19,6 @@ jobs:
 
 
 
-      
-
 
 # COMPOSER_ALLOW_SUPERUSER=1 composer require symfony/requirement-checker ; nano .env.prod.local; COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod ; COMPOSER_ALLOW_USERUSER=1 composer install --no-dev --optimize-autoloader ; APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear ; php bin/console d:d:d --force ; php d:d:c ; php d:m:m -n
 # COMPOSER_ALLOW_SUPERUSER=1 composer require symfony/requirements-checker ; COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod ; COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader ; APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear ; php bin/console d:d:d --force ; php bin/console d:d:c ; php bin/console d:m:m -n; php bin/console sass:build ; php bin/console asset-map:compile
