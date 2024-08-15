@@ -66,10 +66,14 @@ class Hero
             //     'text' => 'Prenez votre licence',
             // ],
         ],
-        
+
     ];
     
     public string $key='contact';
+
+
+
+
 
 
     public string $message = 'jrke';
@@ -78,11 +82,7 @@ class Hero
 
 
     
-    /**
-     * getHomeTile
-     *
-     * @return array
-     */
+
     public function getHomeTile():array
     {
         // dd($this->key);
