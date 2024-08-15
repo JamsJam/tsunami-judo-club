@@ -28,7 +28,7 @@ class Hero
             'description' => 'Le tsunami club propose des cours poour tous les ages, du plus petits au plus grands',
             'ctaSec' => [
                 'path' => 'app_front_contact',
-                'text' => 'Horaire',
+                'text' => 'Horaires',
                 'id'   => 'horaire'
             ],
         ],
@@ -66,9 +66,14 @@ class Hero
             //     'text' => 'Prenez votre licence',
             // ],
         ],
+
     ];
     
     public string $key='contact';
+
+
+
+
 
 
     public string $message = 'jrke';
@@ -77,11 +82,7 @@ class Hero
 
 
     
-    /**
-     * getHomeTile
-     *
-     * @return array
-     */
+
     public function getHomeTile():array
     {
         // dd($this->key);
