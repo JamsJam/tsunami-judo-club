@@ -38,7 +38,7 @@ return [
         'version' => '2.0.1',
     ],
     '@swup/plugin' => [
-        'version' => '2.0.3',
+        'version' => '4.0.0',
     ],
     'swup' => [
         'version' => '3.1.1',
@@ -69,5 +69,8 @@ return [
     ],
     'dayjs/plugin/localizedFormat' => [
         'version' => '1.11.12',
+    ],
+    '@swup/head-plugin' => [
+        'version' => '2.2.0',
     ],
 ];
