@@ -8,34 +8,43 @@ import localeData from 'dayjs/plugin/localeData';
 /* stimulusFetch: 'lazy' */
 
 export default class extends Controller {
-    static targets = ['years', 'month', 'daysContainer'];
+    static targets = [
+        'calendar',
+        'years', 
+        'month', 
+        'daysContainer',
+    ];
 
     static values = {
         today: String,
         year: String,
         month: String,
-        daysInMonth: Number
+        daysInMonth: Number,
+        calendarDays: Array,
+        component: Object,
+        isComponentInitialize: {type:Boolean, default:false}
     };
 
 
-    
+
+    pendingActions = [];
+
     async initialize() {
-
-
-
+        
         this.initialiseDayjs()
-        this.getRightFormat(this.todayValue, 'DD-MM-YYYY')
 
         try {
 
 
             //? ========== initialize component
                 this.component = await getComponent(this.element);
-                console.log('Component successfully initialized:', this.component);
+
+                this.isComponentInitializeValue = true
 
 
-            //? ========== component Event triger
+                //? ========== component Event triger
                 this.setComponentListener(this.component)
+                this.executePendingActions()
                 
         } catch (error) {
             console.error('Failed to initialize component:', error);
@@ -44,46 +53,17 @@ export default class extends Controller {
 
 
 
-    yearsTargetConnected() {
+    calendarTargetConnected() {
         // Display the year from the 'today' value
-        this.yearValue = String(dayjs(this.todayValue).year());
-        this.yearsTarget.innerHTML = `<p>${this.yearValue}</p>`;
-        console.log('Year connected:', this.yearValue);
+        const today  = (JSON.parse(this.calendarTarget.getAttribute('data-live-props-value'))).today
+        console.log(today)
+        this.todayValue = today
+        
     }
 
-    monthTargetConnected() {
-        // Display the month from the 'today' value in French
-        this.monthValue = dayjs.months()[dayjs(this.todayValue).month()];
-        this.monthTarget.innerHTML = `<p>${this.monthValue}</p>`;
-        console.log('Month connected:', this.monthValue);
-    }
-
-    daysContainerTargetContainer(){
-
-        this.setDayInMonth()
-        // this.component.set('today','04-02-2000')
-    }
 
 
     connect() {
-        // Calculate and update the number of days in the month
-        
-        this.setDayInMonth();
-        console.log('CONNECT',this.getDayBefore(this.todayValue))
-        console.log('CONNECT',this.getDayCurrent(this.todayValue, this.daysInMonthValue))
-
-    }
-
-
-
-
-
-    handelTodayChange(value) {
-        this.todayValue = value
-        this.getRightFormat(value )
-        this.setDayInMonth()
-        this.yearFromToday()
-        this.monthFromToday()
     }
 
 
@@ -92,93 +72,155 @@ export default class extends Controller {
 
 
 
-    /**
-     * @description Set TwigComponents Eventlistener
-     * @param {*} TwigComponent
-     * @returns {void}
-     */
-    setComponentListener(TwigComponent)
-    {
+    //* ============== twig component listener
 
-        TwigComponent.on('connect', (component) => {
+        /**
+         *  Set TwigComponents Eventlistener
+         * @param {*} TwigComponent
+         * @returns {void}
+         */
+        setComponentListener(TwigComponent)
+        {
 
-        });
+            TwigComponent.on('connect', (component) => {
+                console.log("EVENT : Composant connecté")
 
-        TwigComponent.on('disconnect ', (component) => {
-
-        });
-
-
-        //* events are only dispatched when the component is re-rendered (via an action or a model change).
-        TwigComponent.on('render:started', (html, backendResponse, shouldRender= { shouldRender: true}) => {
-
-        });
-
-
-        //* events are only dispatched when the component is re-rendered (via an action or a model change).
-        TwigComponent.on('render:finished', (component) => {
+            });
             
-            this.handleReload()
-        });
-
-
-        TwigComponent.on('loading.state:started', (html, backendRequest) => {
-
-        });
-
-
-        TwigComponent.on('loading.state:finished', (html) => {
-        
-
-        });
-
-
-        TwigComponent.on('model:set', (model, value, component) => {
-
-
-            switch (model) {
+            TwigComponent.on('disconnect ', (component) => {
+                console.log("EVENT : Composant déconnecté")
                 
-                case 'today':
-
-                    this.handelTodayChange(value)
-                    break;
+            });
             
-                default:
-                    break;
+            
+            //* events are only dispatched when the component is re-rendered (via an action or a model change).
+            TwigComponent.on('render:started', (html, backendResponse, shouldRender= { shouldRender: true}) => {
+                console.log("EVENT : composant refresh start")
+                
+            });
+            
+            
+            //* events are only dispatched when the component is re-rendered (via an action or a model change).
+            TwigComponent.on('render:finished', (component) => {
+                console.log("EVENT : composant refresh end")
+                
+                // this.handleReload()
+            });
+            
+            
+            TwigComponent.on('loading.state:started', (html, backendRequest) => {
+                
+                console.log("EVENT : composant loading start")
+            });
+            
+            
+            TwigComponent.on('loading.state:finished', (html) => {
+                
+                console.log("EVENT : composant loading end ")
+                console.log("EVENT : composant loading end ")
+                
+            });
+            
+            
+            TwigComponent.on('model:set', (model, value, component) => {
+                
+                console.log("EVENT SET : model " , model )
+                console.log("EVENT SET : value " , value)
+
+
+                switch (model) {
+                    
+                    case 'today':
+
+                        // this.handelTodayChange(value)
+                        break;
+                
+                    default:
+                        break;
+                }
+
+            });
+        }
+
+    //* ============== 
+
+
+
+
+
+    //* ============== Value change listener
+
+        todayValueChanged(current, old){
+
+                this.daysInMonthValue = dayjs(this.todayValue).daysInMonth()
+                this.yearValue = dayjs(this.todayValue).year()
+                this.monthValue = dayjs.months()[dayjs(this.todayValue).month()]
+                this.calendarDaysValue = this.getCalendarDays(dayjs(this.todayValue), this.daysInMonthValue)
+
+        }
+
+        monthValueChanged(current, old){
+            if( typeof(current) == 'string' && current.length){
+
+                this.monthTarget.innerHTML = `<p>${current}</p>`;
             }
+        }
 
-        });
-    }
+        yearValueChanged(current, old){
+            // console.log('YEAR',current,old)
+            if( !isNaN(current)){
 
-
-
-
-
-    handleReload(){
-        this.setDayInMonth()
-        this.component.render()
-    }
+                this.yearsTarget.innerHTML = `<p>${current}</p>`;
+            }
+        }
 
 
-    setDayInMonth() {
-
-        this.daysInMonthValue = dayjs(this.todayValue).daysInMonth();
-        
-    }
-
-
-    yearFromToday(){
-        this.yearValue = String(dayjs(this.todayValue).year());
-        this.yearsTarget.innerHTML = `<p>${this.yearValue}</p>`;
-    }
-
-    monthFromToday(){
-        this.monthValue = dayjs.months()[dayjs(this.todayValue).month()];
-        this.monthTarget.innerHTML = `<p>${this.monthValue}</p>`;
-    }
+        calendarDaysValueChanged(current, old){
+            // console.log(current)
+            if(current.length){
+                this.addPendingAction(()=>this.component.set('days',current))
+                // this.addPendingAction(()=>this.component.set('beginCalendar',current.at(0).date))
+                // this.addPendingAction(()=>this.component.set('endCalendar',current.at(-1).date))
+                // this.addPendingAction(()=>this.component.action('fetchEvent'))
+                this.addPendingAction(()=>this.component.render())
+            }
+            
+        }
 
 
+        isComponentInitializeValueChanged(current, old){
+            console.log('Component successfully initialized:' + current );
+        }
 
+    //* ============== 
+
+
+
+
+    //* ============== pending Action from component
+    
+        executePendingActions(component) {
+            while (this.pendingActions.length > 0) {
+                const action = this.pendingActions.shift();
+                action();
+            }
+        }
+
+        addPendingAction(action) {
+            if (this.isComponentInitializeValue) {
+                action();
+            } else {
+                this.pendingActions.push(action);
+            }
+        }
+    //* ============== 
+    
+    
+    
+    
+    
+    
+    //* ============== getCalendar days methodes
 
         /**
      * 
@@ -187,7 +229,7 @@ export default class extends Controller {
      * @returns {Array} days the current days'month
      * 
      */
-        getDayCurrent(today, dayInMonth){
+        getCurrentMonthDays(today, dayInMonth){
 
             // const firstDayIndex = dayjs(today).date(1).day()
      
@@ -210,7 +252,7 @@ export default class extends Controller {
          * @param {dayjs} today 
          * @returns {Array} days to display before the current days'month
          */
-        getDayBefore(today){
+        getPreviousMonthDays(today){
             const firstDayIndex = dayjs(today).date(1).day()
             console.log(firstDayIndex)
             const daysBefore = []
@@ -244,9 +286,9 @@ export default class extends Controller {
          * @param {int} dayInMonth days in the rcurrent month
          * @returns {Array} days to display next the current days'month
          */
-        getDayNext(today,dayInMonth){
-            const lastDayIndex = dayjs(today,).date(dayInMonth).day()
-     
+        getNextMonthDays (today,dayInMonth){
+            const lastDayIndex = dayjs(today).date(dayInMonth).day()
+
             const daysNext = []
     
             if ( lastDayIndex !== 0) {
@@ -254,7 +296,7 @@ export default class extends Controller {
                 const daysNextNumber =  7 - lastDayIndex 
                 
     
-                for (let index = 1; index < daysNextNumber ; index++) {
+                for (let index = 1; index <= daysNextNumber ; index++) {
                     const element = dayjs(today).date(index + dayInMonth);
                     
                     daysNext.push({
@@ -267,12 +309,26 @@ export default class extends Controller {
             return daysNext.sort()
         }
 
+        /**
+         * 
+         * @param {*} today 
+         * @param {*} dayInMonth 
+         * @returns 
+         */
+        getCalendarDays(today,dayInMonth){
+
+
+            const calendarDays = this.getPreviousMonthDays(today).concat(this.getCurrentMonthDays(today, dayInMonth)).concat(this.getNextMonthDays (today,dayInMonth))
+
+            return calendarDays
+        }
+
+    //* ============== 
 
 
 
 
-
-    //? helper daysjs
+    //* ============== Helper daysjs
 
 
         initialiseDayjs(){
@@ -288,7 +344,8 @@ export default class extends Controller {
          */
         getRightFormat(date,format){
 
-            this.todayValue = dayjs(date).format(format = 'DD-MM-YYYY')
+            // this.todayValue = dayjs(date).format(format = 'DD-MM-YYYY')
         }
 
+    //* ==============
 }

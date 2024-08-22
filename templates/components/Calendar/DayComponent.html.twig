@@ -1,7 +1,111 @@
-<div{{ attributes }}>
+<div
+    {{ attributes.defaults(stimulus_controller('calendar_tile' ,{'day': date,'dayid': uniqid})) }}
+    id="{{ uniqid }}" 
+
+    {{stimulus_target('calendar_tile','tile')}}
+        
 
 
+>
+<style>
 
-        <p>{{ date }}</p>
+.gridcell{
+    position: relative
+}
+.dayNumber{
+    position:absolute;
+    top:1rem;
+    left: 1rem
+}
+
+.calendar-cell {
+    position: relative;
+    padding: 5px;
+    height: 100px; /* Adjust depending on your design */
+}
+
+.event-allday {
+    background-color: #76c7c0; /* Color for allday events */
+    color: white;
+    padding: 2px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.event-long {
+    background-color: #f4a261; /* Color for long events */
+    color: white;
+    padding: 2px;
+    border-radius: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.event-ponctuel {
+    width: 100%;
+    padding-inline: 0.5rem;
+}
+.event-ponctuel p{
+    word-break: normal
+    white-space: nowrap;        /* Prevents the text from wrapping to the next line */
+    overflow: hidden;           /* Hides any overflow text that doesn't fit */
+    text-overflow: ellipsis;
+}
+
+.event-long span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
+
+
+        <span {{stimulus_target('calendar_tile','dayNumber')}} class='dayNumber'>{{ uniqid }}</span>
+
+        {% if  allDay|length > 30 %}
+            {% for item in allDay %}
+                    
+                <div 
+                    {# class="event-allday"  #}
+                    {# title="Événement Allday" #}
+                    {{stimulus_target('calendar_tile','allDayEvent')}}
+                >
+                    Événement Allday
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if  allDay|length > 30 %}
+            {% for item in this.long %}
+                    
+                <div 
+                    {# class="event-long"  #}
+                    {# title="Événement Long qui s'étend sur plusieurs jours" #}
+                    {{stimulus_target('calendar_tile','longEvent')}}
+                >
+                    <span>Événement Long</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if  ponctuel|length > 0 %}
+            <div 
+                class="event-ponctuel" 
+                {# title="Événement Long qui s'étend sur plusieurs jours" #}
+                {{stimulus_target('calendar_tile','ponctuelEvent')}}
+            >
+                {% for item in ponctuel %}
+                    <p
+                        style='white-space:nowrap'
+                    >
+                        <span>
+                            {{ ux_icon('bi:cake2-fill',{height: '16px', width: '16px'}) }}
+                        </span> 
+                        {{item.titre}} 
+                    </p>
+                {% endfor %}
+            </div>
+
+        {% endif %}
+        
 
 </div>

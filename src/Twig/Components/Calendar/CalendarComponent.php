@@ -40,18 +40,17 @@ final class CalendarComponent
     public array $days = [];
 
 
-    // #[LiveProp( hydrateWith: 'hydrateEvents', dehydrateWith: 'dehydrateEvents')]
-    /**
-     * Undocumented variable
-     *
-    //  * @var Event[]
-     */
-    // public ?Event $events = null;
+    // #[LiveProp(writable:true,useSerializerForHydration: true)]
+    // /**
+    //  * Undocumented variable
+    //  *
+    //  */
+    // public  array $events = [];
 
 
 
     public function mount(){
-        $this->today = (new DateTimeImmutable('now'))->format('d-m-Y') ;
+        $this->today = (new DateTimeImmutable('now'))->format('Y-m-d') ;
         // $this->events = [['titre'=> 'titre', 'beginAt' => $this->today]];
     }
 
@@ -65,57 +64,8 @@ final class CalendarComponent
 
     }
 
-    // public function dehydrateEvents(Event $event)
-    // {
-    //     dd('deshydrate');
-    //     return [
-    //         'titre' => $event->getTitre(),
-    //         'beginAt' => $event->getBeginAt()->format('dd-mm-YYY'),
-    //         'endAt' => $event->getEndAt()?->format('dd-mm-YYY'),
-    //         'allDay' => is_null($event->getEndAt())
-    //     ];
-    // }
-
-    // public function hydrateEvents($data): Event
-    // {
-    //     $event = new Event();
-    //     $event->setTitre($data['titre']);
-    //     $event->setBeginAt(new DateTimeImmutable($data['start']));
-    //     if ($data['end']) {
-    //         $event->setEndAt(new DateTimeImmutable($data['end']));
-    //     }
-    //     // Vous pouvez ajouter les autres propriétés ici
-
-    //     return $event;
-    // }
 
 
-    #[LiveAction]
-    public function fetchEvent(){
-        // dd($this->beginCalendar,$this->endCalendar);
-        $events = $this->eventRepository->calendarEvent(
-            new DateTimeImmutable($this->beginCalendar),
-            new DateTimeImmutable($this->endCalendar)
-        );
-          $result = array_map([$this, 'isAllDayEvent'], $events);
-        
-          
-        // dd($this->events);
-        
-    }
-
-    public function isAllDayEvent(array $eventItem) :array
-    {
-        
-            // $item['allday'] = is_null($item['endAt']);
-        return  [
-            'titre' => $eventItem['titre'],
-            'beginAt' => $eventItem['beginAt'],
-            'endAt' => $eventItem['endAt'],
-            // 'type' => $eventItem['type'],
-            'allday' => is_null($eventItem['endAt']),
-            ];
-    }
 
 
 

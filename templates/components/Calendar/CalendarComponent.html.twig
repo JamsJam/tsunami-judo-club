@@ -1,5 +1,6 @@
-<div {{ attributes.defaults(stimulus_controller('calendar',{'today' : today } )) }}
+<div {{ attributes.defaults(stimulus_controller('calendar' )) }}
 style='width:100%'
+{{stimulus_target('calendar','calendar')}}
 >
     {# <script>console.log('{{today}}')</script> #}
 
@@ -39,21 +40,13 @@ style='width:100%'
                 {% for day in days %}
    
                     <twig:Calendar:DayComponent 
-                        day="{{day}}"
+                        date="{{day.date}}"
                         class='gridcell'
 
-                        />
+
+                    />
                   
-                        {# {% if this.events|filter(event => event.beginAt|date('d-m-Y') == day.date ) %} #}
 
-                        {# todayEvent = "{{ this.events|filter(event => event.beginAt|date('d-m-Y') == day.date ) }}" #}
-
-                            {# {% for event in this.events %}
-                                {% if event.beginAt|date('d-m-Y') == day.date %}
-                                    
-                                {% endif %}
-                            {% endfor %} #}
-                        {# {% endif %} #}
                     
                 {% endfor %} 
 
