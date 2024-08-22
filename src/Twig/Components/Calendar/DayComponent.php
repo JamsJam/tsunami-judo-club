@@ -227,20 +227,7 @@ final class DayComponent
 
     //* =========== Getter
 
-    // public function getLong(): array
-    // {
-    //     return $this->long;
-    // }
 
-    // public function getPonctuel(): array
-    // {
-    //     return $this->ponctuel;
-    // }
-
-    // public function getAllDay(): array
-    // {
-    //     return $this->allDay;
-    // }
 
     //* ======================
 
