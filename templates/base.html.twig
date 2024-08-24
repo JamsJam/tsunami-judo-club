@@ -15,7 +15,9 @@
 
         {% block javascripts %}
 
-            {% block importmap %}{{ importmap(['app']) }}{% endblock %}
+            {% block importmap %}
+                {{ importmap(['app']) }}
+            {% endblock %}
 
         {% endblock %}
     </head>
@@ -27,33 +29,7 @@
             direction: 'to-right'
         }) }}
     >
-    {# <style>
-        .swup-transition-main {
-            opacity: 1;
-            transition: opacity 0.3s, transform 0.4s;
-            transform: translate3d(0, 0, 0);
-        }
 
-        html.is-animating .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(-60px, 0, 0); /* Slide to the left */
-        }
-
-        html.is-animating.is-leaving .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(60px, 0, 0); /* Slide from the right */
-        }
-
-        html.is-animating.swup-theme-reverse .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(60px, 0, 0); /* Reverse slide to the right */
-        }
-
-        html.is-animating.swup-theme-reverse.is-leaving .swup-transition-main {
-            opacity: 0;
-            transform: translate3d(-60px, 0, 0); /* Reverse slide from the left */
-        }
-    </style> #}
     
         <header data-controller="header" {{stimulus_controller('header')| stimulus_action('header', 'onResize', "resize@window" ) | stimulus_target('header', 'header') }}>
             <div>
@@ -61,20 +37,20 @@
             </div>
 
             <nav class="navigation" {{ stimulus_target('header', 'navDesktop') }}>
-                <a href="{{path('app_home')}}" class="title__header navigation__item">Accueil</a>
-                <a href="{{path('app_front_calendar')}}" class="title__header navigation__item">Calendrier</a>
-                <a href="" class="title__header navigation__item">Notre club</a>
+                <a href="{{path('app_home')}}" class="title__header navigation__item" data-turbo-action="replace">Accueil</a>
+                <a href="{{path('app_front_calendar')}}" class="title__header navigation__item" data-turbo-action="replace">Calendrier</a>
+                <a href="" class="title__header navigation__item" data-turbo-action="replace">Notre club</a>
                 
                 {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
                     
-                    <a href="" class="title__header navigation__item">Connexion</a>
-                    <a href="" class="button__primary-header">Inscription</a>
+                    <a href="" class="title__header navigation__item" data-turbo-action="replace" >Connexion</a>
+                    <a href="" class="button__primary-header" data-turbo-action="replace" >Inscription</a>
                     
                 {% else %}
-                    <a href="" class="navigation__item">Mon Espace</a>
+                    <a href="" class="navigation__item" data-turbo-action="replace" >Mon Espace</a>
                     
                     {% if is_granted("Admin") %}
-                        <a href="" class="navigation__item">Espace admin</a>
+                        <a href="" class="navigation__item" data-turbo-action="replace" >Espace admin</a>
                         
                     {% endif %}
                 {% endif %}

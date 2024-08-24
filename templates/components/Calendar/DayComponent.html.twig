@@ -1,111 +1,165 @@
 <div
-    {{ attributes.defaults(stimulus_controller('calendar_tile' ,{'day': date,'dayid': uniqid})) }}
+    {{ attributes.defaults(stimulus_controller('calendar_tile' ,{'day': date,'dayid': uniqid}) | stimulus_controller("popover")) }}
     id="{{ uniqid }}" 
 
     {{stimulus_target('calendar_tile','tile')}}
-        
-
+    {# {{stimulus_controller("popover") }} #}
+    {{stimulus_action("popover","show","mouseenter") | stimulus_action("popover","hide","mouseleave") }}
+    style="position:relative"
 
 >
-<style>
+    <style>
 
-.gridcell{
-    position: relative
-}
-.dayNumber{
-    position:absolute;
-    top:1rem;
-    left: 1rem
-}
+        .gridcell{
+            position: relative
+        }
+        .dayNumber{
+            position:absolute;
+            top:1rem;
+            left: 1rem
+        }
 
-.calendar-cell {
-    position: relative;
-    padding: 5px;
-    height: 100px; /* Adjust depending on your design */
-}
+        .calendar-cell {
+            position: relative;
+            padding: 5px;
+            height: 100px; /* Adjust depending on your design */
+        }
 
-.event-allday {
-    background-color: #76c7c0; /* Color for allday events */
-    color: white;
-    padding: 2px;
-    border-radius: 3px;
-    margin-bottom: 2px;
-    width: 100%;
-    box-sizing: border-box;
-}
+        .event-allday {
+            background-color: #76c7c0; /* Color for allday events */
+            color: white;
+            padding: 2px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-.event-long {
-    background-color: #f4a261; /* Color for long events */
-    color: white;
-    padding: 2px;
-    border-radius: 3px;
-    width: 100%;
-    box-sizing: border-box;
-}
-.event-ponctuel {
-    width: 100%;
-    padding-inline: 0.5rem;
-}
-.event-ponctuel p{
-    word-break: normal
-    white-space: nowrap;        /* Prevents the text from wrapping to the next line */
-    overflow: hidden;           /* Hides any overflow text that doesn't fit */
-    text-overflow: ellipsis;
-}
+        .event-long {
+            background-color: #f4a261; /* Color for long events */
+            color: white;
+            padding: 2px;
+            border-radius: 3px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .event-ponctuel {
+            width: 100%;
+            padding-inline: 0.5rem;
+        }
+        .event-ponctuel p{
+            word-break: normal
+            white-space: nowrap;        /* Prevents the text from wrapping to the next line */
+            overflow: hidden;           /* Hides any overflow text that doesn't fit */
+            text-overflow: ellipsis;
+        }
 
-.event-long span {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-</style>
+        .event-long span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 
 
-        <span {{stimulus_target('calendar_tile','dayNumber')}} class='dayNumber'>{{ uniqid }}</span>
+    <span {{stimulus_target('calendar_tile','dayNumber')}} class='dayNumber'>{{ uniqid }}</span>
 
-        {% if  allDay|length > 30 %}
-            {% for item in allDay %}
-                    
-                <div 
-                    {# class="event-allday"  #}
-                    {# title="Événement Allday" #}
-                    {{stimulus_target('calendar_tile','allDayEvent')}}
-                >
-                    Événement Allday
-                </div>
-            {% endfor %}
-        {% endif %}
-        {% if  allDay|length > 30 %}
-            {% for item in this.long %}
-                    
-                <div 
-                    {# class="event-long"  #}
-                    {# title="Événement Long qui s'étend sur plusieurs jours" #}
-                    {{stimulus_target('calendar_tile','longEvent')}}
-                >
-                    <span>Événement Long</span>
-                </div>
-            {% endfor %}
-        {% endif %}
-        {% if  ponctuel|length > 0 %}
+    {% if  allDay|length > 30 %}
+        {% for item in allDay %}
+                
             <div 
-                class="event-ponctuel" 
-                {# title="Événement Long qui s'étend sur plusieurs jours" #}
-                {{stimulus_target('calendar_tile','ponctuelEvent')}}
+                {# class="event-allday"  #}
+                {# title="Événement Allday" #}
+                {{stimulus_target('calendar_tile','allDayEvent')}}
             >
-                {% for item in ponctuel %}
-                    <p
-                        style='white-space:nowrap'
-                    >
-                        <span>
-                            {{ ux_icon('bi:cake2-fill',{height: '16px', width: '16px'}) }}
-                        </span> 
-                        {{item.titre}} 
-                    </p>
-                {% endfor %}
+                Événement Allday
             </div>
+        {% endfor %}
+    {% endif %}
+    {% if  allDay|length > 30 %}
+        {% for item in this.long %}
+                
+            <div 
+                {# class="event-long"  #}
+                {# title="Événement Long qui s'étend sur plusieurs jours" #}
+                {{stimulus_target('calendar_tile','longEvent')}}
+            >
+                <span>Événement Long</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if  ponctuel|length > 0 %}
+        <div 
+            class="event-ponctuel" 
+            style="
+                position: absolute;
+                bottom: 0.2rem;
+            "
+            {# title="Événement Long qui s'étend sur plusieurs jours" #}
+            {{stimulus_target('calendar_tile','ponctuelEvent')}}
+            {{stimulus_controller("popover") }}
 
-        {% endif %}
-        
+            
+        >
+            
+            <a
+                href="#" {{stimulus_action("popover","show","mouseenter") | stimulus_action("popover","hide","mouseleave") }}
+            >
+                {{ ux_icon('bi:cake2-fill',{height: '16px', width: '16px'}) }}     
+                <span 
+                    style="
+                        display:inline-flex;
+                        align-items:center;
+                        justify-content:center;
+                        width: 32px;
+                        height: 32px;
+                        {# aspect-ratio : 1/1 #}
+                        border-radius: 50%;
+                        background:darkblue;
+                        margin-inline-start : 0.3rem
+                    ">
+                    {{ponctuel|length}} 
+                </span>
+            </a>
+                <template {{ stimulus_target('popover', 'content') }}>
+                    <div {{ stimulus_target('popover', 'card') }}
+                        style="
+                            position: absolute;
+                            top: 99%;
+                            left: -0rem;
+                            width: calc(90vw / 7);
+                            padding: 0.5rem 0.6rem;
+                            background:darkblue;
+                            z-index: 2;
+
+                        "
+                    >
+                        <ul>
+                            {% for item in ponctuel %}
+                                
+                                <li style='list-style:none'>{{ ux_icon('bi:cake2-fill',{height: '16px', width: '16px'}) }}   {{item.titre}}</li>
+                            {% endfor %}
+                        </ul>
+                </template>
+
+        </div>
+
+    {% endif %}
+    
+    <template {{ stimulus_target('popover', 'content') }}>
+        <div {{ stimulus_target('popover', 'card') }}
+            style="
+                position: absolute;
+                bottom:0;
+                right: 0;
+                {# width: calc(90vw / 7); #}
+                padding: 0.5rem 0.6rem;
+                z-index: 2;
+
+            "
+        >
+            {{ ux_icon('gg:add', {height: '32px', width: '32px'}) }}
+
+    </template>
 
 </div>
