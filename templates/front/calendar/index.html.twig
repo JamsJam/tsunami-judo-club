@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello CalendarController!{% endblock %}
-{% block mainClass %}calendar{% endblock %}
+{% block mainClass %}calendrier{% endblock %}
+{% block mainModal %}{{ stimulus_controller('event-modal-management')|stimulus_target('event-modal-management', 'main') |stimulus_action('event-modal-management','handleModalEvent','calendar-tile:openModal')}}{% endblock %}
+
 
 {% block body %}
 
