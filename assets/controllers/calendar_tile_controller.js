@@ -16,7 +16,7 @@ export default class extends Controller {
         'dayNumber',
         'ponctuelEvent',
         'longEvent',
-        'allDayEvent',
+        'allDayEvent'
     ]
     static values = {
         day:String,
@@ -57,10 +57,8 @@ export default class extends Controller {
 
     //* ============== TargetConnect listener
         tileTargetConnected(){
-            console.log('day', this.dayValue);
-            console.log('uniqID', this.dayidValue);
-
         }
+
         dayNumberTargetConnected(){
             this.displayDayNumber(this.dayNumberTarget, this.dayValue )
             
@@ -68,14 +66,7 @@ export default class extends Controller {
         
         //* ============================ 
         
-        connect(){
-            this.addPendingAction(()=>{
-            console.log(this.dayNumberTarget)
-
-            // this.component.render()
-
-        })
-    }
+        connect(){}
 
 
 
@@ -97,28 +88,28 @@ export default class extends Controller {
         {
 
             TwigComponent.on('connect', (component) => {
-                console.log("EVENT : Composant connecté")
+                // console.log("EVENT : Composant connecté")
 
             });
             
             TwigComponent.on('disconnect ', (component) => {
-                console.log("EVENT : Composant déconnecté")
+                // console.log("EVENT : Composant déconnecté")
                 
             });
             
             
             //* events are only dispatched when the component is re-rendered (via an action or a model change).
             TwigComponent.on('render:started', (html, backendResponse, shouldRender= { shouldRender: true}) => {
-                console.log("EVENT : composant refresh start")
+                // console.log("EVENT : composant refresh start")
                 
             });
             
             
             //* events are only dispatched when the component is re-rendered (via an action or a model change).
             TwigComponent.on('render:finished', (component) => {
-                console.log("EVENT : composant refresh end")
-                console.log('day', this.dayValue);
-                console.log('uniqID', this.dayidValue)
+                // console.log("EVENT : composant refresh end")
+                // console.log('day', this.dayValue);
+                // console.log('uniqID', this.dayidValue)
                 
                 // this.handleReload()
             });
@@ -126,13 +117,13 @@ export default class extends Controller {
             
             TwigComponent.on('loading.state:started', (html, backendRequest) => {
                 
-                console.log("EVENT : composant loading start")
+                // console.log("EVENT : composant loading start")
             });
             
             
             TwigComponent.on('loading.state:finished', (html) => {
                 
-                console.log("EVENT : composant loading end ")
+                // console.log("EVENT : composant loading end ")
 
                 
             });
@@ -140,8 +131,8 @@ export default class extends Controller {
             
             TwigComponent.on('model:set', (model, value, component) => {
                 
-                console.log("EVENT SET -> model :" , model )
-                console.log("EVENT SET -> value :" , value)
+                // console.log("EVENT SET -> model :" , model )
+                // console.log("EVENT SET -> value :" , value)
 
 
                 switch (model) {
@@ -218,7 +209,22 @@ export default class extends Controller {
         }
 
     //* ============================ 
+    
 
+
+
+    //* ============== Event Dispatch
+        
+    addEventTrigger(){
+        this.dispatch('openModal', { detail: { content: {
+            openModal: true,
+            trigger: 'add',
+            beginAt: this.getDayjsFormat(this.dayValue)
+        }}})
+
+    }
+    
+    //* ============================ 
 
 
 
@@ -254,7 +260,7 @@ export default class extends Controller {
     //* ============== Event Helper
 
 
-//dayjs().isSame(dayjs('2011-01-01'))
+
     //* ============================ 
     
 

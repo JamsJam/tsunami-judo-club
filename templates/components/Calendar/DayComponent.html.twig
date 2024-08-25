@@ -147,7 +147,7 @@
     {% endif %}
     
     <template {{ stimulus_target('popover', 'content') }}>
-        <div {{ stimulus_target('popover', 'card') }}
+        <div {{ stimulus_target('popover', 'card')  | stimulus_action('calendar-tile','addEventTrigger','click') | stimulus_action('calendar-tile','eventTriggered','openModal')}}
             style="
                 position: absolute;
                 bottom:0;
