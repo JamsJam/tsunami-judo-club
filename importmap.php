@@ -28,29 +28,8 @@ return [
     '@hotwired/turbo' => [
         'version' => '8.0.5',
     ],
-    '@swup/fade-theme' => [
-        'version' => '1.0.5',
-    ],
-    '@swup/slide-theme' => [
-        'version' => '1.0.5',
-    ],
-    '@swup/forms-plugin' => [
-        'version' => '2.0.1',
-    ],
-    '@swup/plugin' => [
-        'version' => '2.0.3',
-    ],
-    'swup' => [
-        'version' => '3.1.1',
-    ],
     'delegate-it' => [
         'version' => '6.0.1',
-    ],
-    '@swup/debug-plugin' => [
-        'version' => '3.0.0',
-    ],
-    '@swup/theme' => [
-        'version' => '2.1.0',
     ],
     'path-to-regexp' => [
         'version' => '7.1.0',
@@ -69,9 +48,6 @@ return [
     ],
     'dayjs/plugin/localizedFormat' => [
         'version' => '1.11.13',
-    ],
-    '@swup/head-plugin' => [
-        'version' => '2.2.0',
     ],
     '@stimulus-components/popover' => [
         'version' => '7.0.0',

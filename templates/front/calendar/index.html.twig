@@ -2,7 +2,13 @@
 
 {% block title %}Hello CalendarController!{% endblock %}
 {% block mainClass %}calendrier{% endblock %}
-{% block mainModal %}{{ stimulus_controller('event-modal-management')|stimulus_target('event-modal-management', 'main') |stimulus_action('event-modal-management','handleModalEvent','calendar-tile:openModal')}}{% endblock %}
+{% block mainModal %}
+    {{ stimulus_controller('event-modal-management')
+    | stimulus_target('event-modal-management', 'main') 
+    | stimulus_action('event-modal-management','handleTuboEvent','turbo:before-stream-render')
+    }}
+{% endblock %}
+    {# | stimulus_action('event-modal-management','handleModalEvent','calendar-tile:openModal') #}
 
 
 {% block body %}
@@ -29,6 +35,9 @@
 
     <h1>Calendrier</h1>
 
+
     <twig:Calendar:CalendarComponent />
     
+    {# <div  class="addModal"></div> #}
+
 {% endblock %}

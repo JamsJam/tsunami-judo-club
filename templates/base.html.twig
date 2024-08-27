@@ -21,14 +21,7 @@
 
         {% endblock %}
     </head>
-    <body
-        {# {{ stimulus_controller('swup') | stimulus_controller('symfony/ux-swup/swup', {
-            containers: ['#swup'],
-            animateHistoryBrowsing: true,
-            theme: 'slide',
-            direction: 'to-right'
-        }) }} #}
-    >
+    <body>
 
     
         <header data-controller="header" {{stimulus_controller('header')| stimulus_action('header', 'onResize', "resize@window" ) | stimulus_target('header', 'header') }}>
@@ -37,9 +30,9 @@
             </div>
 
             <nav class="navigation" {{ stimulus_target('header', 'navDesktop') }}>
-                <a href="{{path('app_home')}}" class="title__header navigation__item" data-turbo-action="replace">Accueil</a>
-                <a href="{{path('app_front_calendar')}}" class="title__header navigation__item" data-turbo-action="replace">Calendrier</a>
-                <a href="" class="title__header navigation__item" data-turbo-action="replace">Notre club</a>
+                <a href="{{path('app_home')}}" class="title__header navigation__item" >Accueil</a>
+                <a href="{{path('app_front_calendar')}}" class="title__header navigation__item" >Calendrier</a>
+                <a href="{{path('app_front_about')}}" class="title__header navigation__item" >Notre club</a>
                 
                 {% if not is_granted("IS_AUTHENTICATED_FULLY") %}
                     
@@ -68,7 +61,7 @@
 
         </header>
         
-        <main class="{% block mainClass %}{% endblock %}" id='swup' {% block mainModal %}{% endblock %} >
+        <main class="{% block mainClass %}{% endblock %}" id='main' {% block mainModal %}{% endblock %} >
             <div class="navigationMobile__container" {{stimulus_target('burger', 'navMobile') | stimulus_target('header', 'navMobile')}} id="navMobile"> {# 100vh #}
                 <div class="navigationMobile">
                     <div class="navigationMobile__logo"></div>
