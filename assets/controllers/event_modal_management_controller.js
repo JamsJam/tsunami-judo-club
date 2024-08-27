@@ -24,6 +24,11 @@ export default class extends Controller {
     initialize(){
         // console.group('ready')
     }
+    connect(){
+        this.handleTuboEvent = this.handleTuboEvent.bind(this);
+        addEventListener("turbo:before-stream-render", (e)=>this.handleTuboEvent(e));
+
+    }
 
     //* ============== Eventlistener handler
    
@@ -34,6 +39,21 @@ export default class extends Controller {
         this.isEventModalValue = openModal
         this.beginAtValue = beginAt
 
+    }
+
+    handleTuboEvent(e){
+        console.log(e)
+        console.log('TURBO')
+        // this.createElement()
+        this.isEventModalValue = true
+    }
+
+    //* ============================
+
+    //* ============== target connect listener
+
+    modalContainerTargetConnected(){
+        
     }
 
     //* ============================
@@ -53,10 +73,13 @@ export default class extends Controller {
             case old && !current:
                 this.destroyModal()
                 break;
+            case old && !current:
+                this.destroyModal()
+                break;
         
             default:
 
-                console.error('unautorized modal action')
+                return
                 break;
         }
 
@@ -79,7 +102,8 @@ export default class extends Controller {
     createElement(){
         let container = document.createElement('div')
         container.classList.add('modalContainer')
-        console.log(container)
+        container.setAttribute('data-event-modal-management-target' , 'modalContainer')
+        container.setAttribute('id' , "modal")
         this.mainTarget.appendChild(container)
 
     }

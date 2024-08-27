@@ -147,18 +147,23 @@
     {% endif %}
     
     <template {{ stimulus_target('popover', 'content') }}>
-        <div {{ stimulus_target('popover', 'card')  | stimulus_action('calendar-tile','addEventTrigger','click') | stimulus_action('calendar-tile','eventTriggered','openModal')}}
-            style="
-                position: absolute;
-                bottom:0;
-                right: 0;
-                {# width: calc(90vw / 7); #}
-                padding: 0.5rem 0.6rem;
-                z-index: 2;
 
-            "
-        >
-            {{ ux_icon('gg:add', {height: '32px', width: '32px'}) }}
+            <a href="{{path('app_event_new',{'beginAt' : date })}}" data-turbo-prefetch="false" data-turbo-stream data-no-swup 
+            {{ stimulus_target('popover', 'card')  }}
+                {# | stimulus_action('calendar-tile','addEventTrigger','click')  #}
+                style="
+                    position: absolute;
+                    bottom:0;
+                    right: 0;
+                    {# width: calc(90vw / 7); #}
+                    padding: 0.5rem 0.6rem;
+                    z-index: 2;
+
+                "
+            >
+                {{ ux_icon('gg:add', {height: '32px', width: '32px'}) }}
+            </a>
+
 
     </template>
 
