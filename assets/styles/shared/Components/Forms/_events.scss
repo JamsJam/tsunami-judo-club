@@ -1,0 +1,60 @@
+@use '../../abstract/' as *;
+
+.formEvent{
+
+    @extend %flex-column-center;
+    gap:2rem;
+
+    background-color: $glassoW-25;
+
+
+    height: min-content;
+    // min-height: 400px;
+
+    // width: 90%;
+    max-width: 1000px;
+
+    padding: 4rem 2rem;
+
+    border-radius: 20px;
+    box-shadow: 0px 2px 10px 1px $glassoB-25;
+
+
+
+
+
+    &__date,
+    &__info,
+    &__option,
+    &__button
+    {
+        @extend %flex-row-around-center;
+        gap:1rem;
+        width: 100%;
+        
+        
+    }
+
+    &__info
+    {
+        @extend %flex-column-center-stretch;
+
+        
+        .input__text{
+            
+            width: 100%;
+            padding: 0.5rem 1rem;
+            
+        }
+        
+    }
+    
+    
+    .form-group{
+        @extend %flex-column-center;
+        width: 100%;
+
+
+
+    }
+}

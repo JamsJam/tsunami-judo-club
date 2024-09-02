@@ -5,6 +5,17 @@
 
 
     position:relative;
+    background : 
+
+        linear-gradient( hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.7)), 
+        url('../images/backgrounds/backgroundHomeTileEvenement.jpg') 
+        center/cover
+        no-repeat 
+        // fixed 
+        ;
+    
+        // background-color: #000000; 
+
 
 
 
@@ -25,11 +36,15 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: calc(100dvh - 130px);
+        width: 100%;
+        height: calc(100% );
 
-        background-color: tan;
+        background-color: $glassoB-25;
+        backdrop-filter: blur(6px);
+
+        z-index: 4;
         
+        @extend %flex-center
     }
 }
 

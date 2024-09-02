@@ -2,6 +2,7 @@
 
 .button{
 
+    all: unset;
     border-radius: 10px;
     font-family: $font-title;
 
@@ -11,6 +12,12 @@
         color 300ms ease-in-out,
         box-shadow 300ms ease-in-out
     ;
+
+    &:hover{
+        // outline: revert;
+    }
+
+
 
     &__primary{
 

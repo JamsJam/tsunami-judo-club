@@ -3,12 +3,14 @@
 {% block title %}New Event{% endblock %}
 
 {% block body %} #}
+
+
 {% block add_event %}
     <turbo-stream action="append" target="modal">
         <template>
-            {{ include('evenement/event/_form.html.twig') }}
+            
+            {{ include('evenement/event/_form.html.twig',{'beginAt': beginDate}) }}
 
-    <a href="{{path('app_event_new',{'close' : 'close' })}}" data-turbo-prefetch="false" data-turbo-stream data-no-swup>close</a>
         </template>
         
     </turbo-stream>

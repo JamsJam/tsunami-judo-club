@@ -4,55 +4,64 @@
 {{ form_end(form) }} #}
 
 
-{{ form_start(form) }}
+{{ form_start(form, {
+    'action': path('app_event_new'),
+    'attr': {
+        'class': 'formEvent'
+    }
+})}}
 
-    {# <div class="form-group">
-        {{ form_label(form.uuid) }}
-        {{ form_widget(form.uuid, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.uuid) }}
-    </div> #}
 
-    {# <div class="form-group">
-        {{ form_label(form.createdAt) }}
-        {{ form_widget(form.createdAt, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.createdAt) }}
-    </div>
+<div class="formEvent__date">
 
     <div class="form-group">
-        {{ form_label(form.editedAt) }}
-        {{ form_widget(form.editedAt, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.editedAt) }}
-    </div> #}
-
-    <div class="form-group">
-        {{ form_label(form.beginAt) }}
-        {{ form_widget(form.beginAt, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(form.beginAt)  }}
+        {{ form_widget(form.beginAt, {'attr': {
+            'class': 'dateTime',
+            'value': beginAt
+            }}) }}
         {{ form_errors(form.beginAt) }}
     </div>
 
     <div class="form-group">
         {{ form_label(form.endAt) }}
-        {{ form_widget(form.endAt, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.endAt, {'attr': {'class': 'dateTime'}}) }}
         {{ form_errors(form.endAt) }}
     </div>
+</div>
+
+
+
+<div class="formEvent__info">
 
     <div class="form-group">
         {{ form_label(form.titre) }}
-        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.titre) }}
         {{ form_errors(form.titre) }}
     </div>
 
     <div class="form-group">
         {{ form_label(form.description) }}
-        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.description) }}
         {{ form_errors(form.description) }}
     </div>
+</div>
 
+
+<div class="formEvent__option">
     <div class="form-group">
         {{ form_label(form.isPublic) }}
         {{ form_widget(form.isPublic, {'attr': {'class': 'form-check-input'}}) }}
         {{ form_errors(form.isPublic) }}
     </div>
+</div>
+
+<div class="formEvent__buttons">
+    <a href="{{path('app_event_new',{'close' : 'close' })}}" data-turbo-prefetch="false" data-turbo-stream data-no-swup>close</a>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+</div>
+
+
 
 
 
@@ -81,6 +90,6 @@
         {{ form_errors(form.need) }}
     </div> #}
 
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
 
 {{ form_end(form) }}

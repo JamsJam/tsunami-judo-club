@@ -21,7 +21,7 @@ final class Version20240713014046 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
 
-        $this->addSql('INSERT INTO grade (ceinture, grade) VALUES  ("blanc", "9e kyu"),("blanc-jaune", "8e kyu"),("jaune", "7e kyu"),("jaune-orange", "6e kyu"),("orange", "5e kyu"),("orange-vert", "4e kyu"),("vert", "3e kyu"),("bleu", "2e kyu"),("maron", "1er kyu"),("noir", "2e dan"),("noir", "3e dan"),("noir", "4e dan"),("noir", "5e dan"),("noir", "6e dan"),("noir", "7e dan"),("noir", "8e dan"),("noir", "9e dan")');
+        $this->addSql('INSERT INTO grade (ceinture, grade) VALUES  ("blanc", "9e kyu"),("blanc-jaune", "8e kyu"),("jaune", "7e kyu"),("jaune-orange", "6e kyu"),("orange", "5e kyu"),("orange-vert", "4e kyu"),("vert", "3e kyu"),("bleu", "2e kyu"),("maron", "1er kyu"),("noir", "1er dan"),("noir", "2e dan"),("noir", "3e dan"),("noir", "4e dan"),("noir", "5e dan"),("noir", "6e dan"),("noir", "7e dan"),("noir", "8e dan"),("noir", "9e dan")');
         $this->addSql('INSERT INTO arbitrelvl (niveaux) VALUES ("club"),("departemental"),("regional"),("national"),("international")');
         $this->addSql('INSERT INTO commissairelvl (niveaux) VALUES ("club"),("departemental"),("regional"),("national"),("international")');
         $this->addSql('INSERT INTO groupe (nom) VALUES  ("arbitre"), ("commissaire"), ("competiteur"), ("kata"), ("pole")');
@@ -40,6 +40,7 @@ final class Version20240713014046 extends AbstractMigration
         $this->addSql('DELETE FROM Grade WHERE ceinture = "vert" AND grade = "3e kyu"');
         $this->addSql('DELETE FROM Grade WHERE ceinture = "bleu" AND grade = "2e kyu"');
         $this->addSql('DELETE FROM Grade WHERE ceinture = "maron" AND grade = "1er kyu"');
+        $this->addSql('DELETE FROM Grade WHERE ceinture = "noir" AND grade = "1er dan"');
         $this->addSql('DELETE FROM Grade WHERE ceinture = "noir" AND grade = "2e dan"');
         $this->addSql('DELETE FROM Grade WHERE ceinture = "noir" AND grade = "3e dan"');
         $this->addSql('DELETE FROM Grade WHERE ceinture = "noir" AND grade = "4e dan"');

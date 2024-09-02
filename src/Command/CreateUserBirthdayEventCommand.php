@@ -13,6 +13,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[AsCommand(
 
@@ -63,11 +64,12 @@ class CreateUserBirthdayEventCommand extends Command
                 'titre' => 'Anniversaire de ' . $user->getPrenom() .' '. $user->getNom()
 
             ]);
-
+            $uuid = Uuid::v7();
             if (!$existingEvent) {
                 $event = (new Event())
                     ->setCreatedAt(new \DateTimeImmutable())
                     ->setEditedAt(new \DateTimeImmutable())
+                    ->setUuid($uuid)
                     ->setTitre('Anniversaire de ' . $user->getPrenom() .' '. $user->getNom())
                     ->setType($eventType)
                     ->setBeginAt($birthdayThisYear)

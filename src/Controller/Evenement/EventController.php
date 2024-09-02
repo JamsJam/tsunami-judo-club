@@ -5,6 +5,8 @@ namespace App\Controller\Evenement;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,8 +31,8 @@ class EventController extends AbstractController
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
-
-
+        $request->query->get('beginAt')  ? $beginDate = $request->query->get('beginAt') : $beginDate = null ;
+        // dd(new DateTimeImmutable($beginDate));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($event);
@@ -55,14 +57,14 @@ class EventController extends AbstractController
                     ]
                 );
             }
-
+            
             return $this->renderBlock(
                 'evenement/event/_new.html.twig', 
                 'add_event', 
                     [
                     'event' => $event,
                     'form' => $form,
-                    $request->query->get('beginAt') && $beginDate = $request->query->get('beginAt') 
+                    'beginDate' => (new DateTimeImmutable($beginDate))->format('Y-m-d H:i')
                 ]
             );
             // return $this->render('evenement/event/_new.html.twig', [

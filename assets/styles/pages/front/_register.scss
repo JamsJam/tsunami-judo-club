@@ -1,0 +1,97 @@
+@use '../../shared/abstract/' as * ;
+
+
+.register{
+
+
+    position:relative;
+    background : 
+        linear-gradient( hsla(0, 0%, 0%, 0.85), hsla(0, 0%, 0%, 0.85)),
+        url('../images/backgrounds/backgroundRegister.jpg') 
+        center/cover 
+        no-repeat
+        fixed
+        ;
+
+    @extend %flex-column-center ;
+
+
+
+
+    form{
+
+
+        width:  clamp(18.75rem, 6.1071rem + 63.2143vw, 63rem);
+        border-radius: 20px;
+        box-shadow: 2;
+        
+        min-width: 300px;
+        // height: 70vh;
+        padding:4rem ;
+        background-color: $glassoW-15;
+        backdrop-filter: blur(4px);
+        @extend %flex-column-center ;
+        gap: 2rem;
+
+
+        &>div{
+            @extend %flex-column-center ;
+            gap: 0.5rem;
+            width: 100%;
+            
+        }
+        
+
+        
+        .input__text{
+            padding: 0.5rem 1rem;
+            width: 100%;
+            text-align: center;
+            
+
+            &::placeholder{
+                color: $neutral-25;
+            }
+        }
+
+        .buttonContainer{
+            @extend %flex-row-around-center;
+
+            margin-block-start:2rem
+        }
+
+        .radios{
+            @extend %flex-row-around-center;
+            width: 100%;
+            flex-wrap: wrap;
+
+
+            .radio-container{
+                @extend %flex-column-center ;
+                gap: 0.3rem;
+                flex-wrap: wrap
+            }
+        }
+
+
+        .pratiqueJudo{
+            @extend %flex-column-stretch !optional;
+            .radios{
+                width: 100%;
+            }
+            
+        }
+
+        #grade{
+            .radios{
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap :0.5rem
+            }
+        }
+
+        .custom-select{
+            width: 100%;
+        }
+    }
+}
