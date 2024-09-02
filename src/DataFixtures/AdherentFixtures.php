@@ -71,11 +71,12 @@ class AdherentFixtures extends Fixture
                     ->setNom($faker->lastName())
                     ->setPrenom($adherent->getSexe() === 0 ? $faker->firstNameMale() : $faker->firstNameFemale())
                     ->setBirthAt(new DateTimeImmutable($faker->dateTimeBetween('-50 Years', '-13 Years')->format('Y-m-d')))
-                    ->setEmail($faker->email())
+                    ->setEmail('user-' . strval($i) . '@user-tsunami.com')
                     ->setPassword($this->hasher->hashPassword($adherent, 'password'))
                     ->setTelephone(intval($faker->phoneNumber()))
                     ->setAdress1($faker->streetAddress())
                     ->setCpo('971' . random_int(0,9) . random_int(0,9))
+                    ->setVerified(true)
                     ->setCreatedAt(new DateTimeImmutable('now'))
                     ->setUpdatedAt(new DateTimeImmutable('now'))
                 ;

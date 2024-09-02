@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}}Inscription{% endblock %}
+
+{% block mainClass %}register{% endblock %}
+
+
+{% block body %}
+
+    <h1>Formulaire de d'inscription</h1>
+
+
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    
+
+
+    <turbo-frame id="register_form">
+        <h2>Personne a contacter en cas d'urgence</h2>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm, {action: path('app_register_part4')}) }}
+
+         
+        {# {{ form_row(registrationForm.sexe) }} #}
+
+
+        {# {% if registrationForm.licence is define %} #}
+            <div>
+                <div>
+                    {{ form_label(registrationForm.isNewbi) }}
+                    <div class='radios'>
+                        {% for item in registrationForm.isNewbi %}
+                            <div class='radio-container'>
+                                {{ form_label(item) }}
+                                {{ form_widget(item) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            
+            </div>
+        {# {% else %}
+            
+        {% endif %} #}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.password.first)}}
+        {{ form_row(registrationForm.password.second)}}
+        {{ form_row(registrationForm.agreeTerms)}}
+        {# {{ form_row(registrationForm.birthAt) }} #}
+
+        <div class="buttonContainer">
+            <a href="{{path('app_register_part3')}}" target='register_form' class="button__secondary">Précédent</a>
+            <button type="submit" class="button__primary">Suivant</button>
+        </div>
+            
+        {{ form_end(registrationForm) }}
+    </turbo-frame>
+
+{% endblock %}

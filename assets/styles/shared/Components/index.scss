@@ -2,4 +2,5 @@
 @forward 'buttons';
 @forward 'burger';
 @forward 'inputs';
-@use './Cards/' as *
+@use './Cards/' as *;
+@use './Forms/' as *;

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}}Inscription{% endblock %}
+
+{% block mainClass %}register{% endblock %}
+
+
+{% block body %}
+
+    <h1>Formulaire de d'inscription</h1>
+
+
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    
+
+
+    <turbo-frame id="register_form"> 
+        <h2>Information de contact</h2>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm,{action: path('app_register_part2')}) }}
+
+         
+        {# {{ form_row(registrationForm.sexe) }} #}
+
+
+        {{ form_row(registrationForm.adress1) }}
+        {{ form_row(registrationForm.cpo)}}
+        {{ form_row(registrationForm.ville) }}
+        {{ form_row(registrationForm.pays)}}
+        {# {{ form_row(registrationForm.indicatif) }} #}
+        {{ form_row(registrationForm.telephone)}}
+        {# {{ form_row(registrationForm.birthAt) }} #}
+
+        <div class="buttonContainer">
+            <a href="{{path('app_register')}}" target='register_form' class="button__secondary">Précédent</a>
+            <button type="submit" class="button__primary">Suivant</button>
+        </div>
+            
+        {{ form_end(registrationForm) }}
+    </turbo-frame>
+
+{% endblock %}

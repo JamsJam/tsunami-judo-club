@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UuidType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EventType extends AbstractType
@@ -70,18 +71,23 @@ class EventType extends AbstractType
 
     ->add('beginAt', DateTimeType::class, [
         'label' => 'Begin At',
-        'widget' => 'single_text',
+        // 'widget' => 'single_text',
     ])
     ->add('endAt', DateTimeType::class, [
         'label' => 'End At',
-        'widget' => 'single_text',
+        // 'widget' => 'single_text',
     ])
     ->add('titre', TextType::class, [
         'label' => 'Title',
-    ])
-    ->add('description', TextareaType::class, [
-        'label' => 'Description',
-        'required' => false,
+        "attr" =>[
+            'class' => 'input__text'
+        ]
+        ])
+        ->add('description', TextareaType::class, [
+            'label' => 'Description',
+            "attr" =>[
+                'class' => 'input__text'
+            ]
     ])
     ->add('isPublic', CheckboxType::class, [
         'label' => 'Is Public?',

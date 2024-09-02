@@ -138,6 +138,17 @@
         align-items: center;
     }
 
+    %flex-column-start-stretch{
+        display: -webkit-flex;
+        flex-direction: -webkit-column;
+        justify-content: -webkit-start;
+        align-items: -webkit-center;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: stretch;
+    }
+
     %flex-column-between-start{
         display: -webkit-flex;
         flex-direction: -webkit-column;

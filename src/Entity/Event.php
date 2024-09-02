@@ -30,7 +30,7 @@ class Event
     #[ORM\Column]
     private ?\DateTimeImmutable $beginAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $endAt = null;
 
     #[ORM\Column(length: 255)]
@@ -129,7 +129,7 @@ class Event
         return $this->endAt;
     }
 
-    public function setEndAt(\DateTimeImmutable $endAt): static
+    public function setEndAt(?\DateTimeImmutable $endAt): static
     {
         $this->endAt = $endAt;
 

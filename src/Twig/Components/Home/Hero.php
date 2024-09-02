@@ -12,10 +12,10 @@ class Hero
             'h1' => 'LE TSUNAMI CLUB : PLUS QU’UN DOJO, UNE ECOLE DE VIE',
             // 'h2' => 'Notre club et ses valeurs',
             'description' => 'Le judo enseigne la discipline, le respect et la persévérance. Au-delà des techniques, il forge l\'esprit et le caractère. Chaque judoka apprend l\'humilité et le courage, cultivant l\'entraide et la maîtrise de soi. Au Tsunami Club, le judo est une école de vie transformant ses pratiquants.',
-            // 'ctaPrim' => [
-            //     'path' => 'app_register',
-            //     'text' => 'Prenez votre licence',
-            // ],
+            'ctaPrim' => [
+                'path' => 'app_register',
+                'text' => 'Prenez votre licence',
+            ],
             'ctaSec' => [
                 'path' => 'app_front_about',
                 'text' => 'A propos du club',
@@ -61,10 +61,10 @@ class Hero
         'inscription' => [
             'h2' => 'Rejoignez nous Dés maintenant ',
             // 'description' => 'Description pour la page 6',
-            // 'ctaPrim' => [
-            //     'path' => 'app_register',
-            //     'text' => 'Prenez votre licence',
-            // ],
+            'ctaPrim' => [
+                'path' => 'app_register',
+                'text' => 'Prenez votre licence',
+            ],
         ],
 
     ];

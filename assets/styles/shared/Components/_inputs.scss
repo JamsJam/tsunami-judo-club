@@ -9,10 +9,19 @@
         background-color: $neutral-85;
         border:none;
         padding: 1rem;
-        border-radius: 10px;
+        border-radius: 5px;
     };
 
-    
+  
+}
+
+.dateTime{
+  @extend %flex-center;
+  color: $neutral-05;
+  background-color: $neutral-85;
+  border-radius: 20px;
+  width: min-content;
+  padding: 0.5rem 1rem;
 }
 
 .checkbox {
@@ -103,4 +112,7 @@
     border-top: var(--size) solid black;
     top: 55%;
   }
+
+
+
 }
