@@ -20,7 +20,7 @@ L'application web doit repondre aux besoins suivants:
 ### Specification technique
 L'application sera developpé avec les technologie suivantes :
 -   **Langage de programmation :**
-    Php 8.1 avec le framework Symfony 6.2
+    Php 8.1 avec le framework Symfony 7.1
 -   **Langage front-end:**
     -   Twig 2
     -   HTML

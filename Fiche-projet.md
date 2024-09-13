@@ -129,6 +129,7 @@ Page tampon avant l'accueil permettant une connexion rapide aux espaces membres 
 Page d'accueil du site internet sous la forme d'un hub central permettant d'accéder aux différentes sections du site internet. Elle sera organisée comme un tableau 1x2x2x2x1 ou 1x2x2x1x1 avec les sections suivantes :
 
 
+
 <table>
 	<tr>
 		<td colspan="2" align="center">Section 1</td>
