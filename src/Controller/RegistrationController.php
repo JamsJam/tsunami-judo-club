@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
@@ -156,6 +155,57 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/registerStep4.html.twig', [
+            'registrationForm' => $form,
+        ]);
+    }
+
+    #[Route('/inscription/confirm', name: 'app_register_confirm')]
+    public function registerConfirm(Request $request,UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $session = $request->getSession();
+
+        if(is_null($session->get('infoPerso'))|| is_null($session->get('infoContact'))|| is_null($session->get('infoContactUrgence'))){
+            return $this->redirectToRoute('app_register');
+        }
+
+
+
+        $form = $this->createForm(RegisterStep4Type::class);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $session = $request->getSession();
+            $session->set('infoContactUrgence', $form->getData()); 
+            
+            //todo =================== resolve form and set new user
+            $user = new Adherent;
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // generate a signed url and email it to the user
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('mailer@example.com', 'AcmeMailBot'))
+                    ->to($user->getEmail())
+                    ->subject('Please Confirm your Email')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
+            // do anything else you need here, like send an email
+
+            //todo ===================
+            return $this->redirectToRoute('app_main');
+        }
+
+        return $this->render('registration/registerValidation.html.twig', [
             'registrationForm' => $form,
         ]);
     }
